@@ -10,7 +10,7 @@ namespace VETHarbor.Models
         public int ProgramId { get; set; }
 
         public int OrgUserId { get; set; }
-        public Organizational_User organizational_User { get; set; }
+        public Organizational_User Organizational_User { get; set; }
 
         public string ProgramTitle { get; set; }
         public string ProgramCity { get; set; }

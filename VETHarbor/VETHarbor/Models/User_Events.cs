@@ -10,8 +10,12 @@ namespace VETHarbor.Models
         public int UserEventId { get; set; }
 
         public int UserId { get; set; }
+        public ApplicationUser ApplicationUser { get; set; }
 
         public int EventId { get; set; }
-        public events Events { get; set; }
+        public Events Events { get; set; }
+
+        //Represents a collection of user saved events
+        public ICollection<Events> Event { get; set; }
     }
 }

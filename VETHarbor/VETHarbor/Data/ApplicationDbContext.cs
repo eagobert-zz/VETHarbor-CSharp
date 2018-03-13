@@ -8,14 +8,14 @@ using VETHarbor.Models;
 
 namespace VETHarbor.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, Guid>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
         }
 
-        public DbSet<User_Profile> User_Profiles { get; set; }
+       
         public DbSet<Organization> Organizations { get; set; }
         public DbSet<User_Programs> User_Programs { get; set; }
         public DbSet<User_Events> User_Events { get; set; }

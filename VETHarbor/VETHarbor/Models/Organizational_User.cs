@@ -13,7 +13,7 @@ namespace VETHarbor.Models
         public Organization Organization { get; set; }
 
         public int UserId { get; set; }
-        public User_Profile User_Profile { get; set; }
+        public ApplicationUser ApplicationUser { get; set; }
 
 
     }
