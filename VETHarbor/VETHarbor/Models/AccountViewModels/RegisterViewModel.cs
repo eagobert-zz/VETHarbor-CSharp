@@ -9,6 +9,34 @@ namespace VETHarbor.Models.AccountViewModels
     public class RegisterViewModel
     {
         [Required]
+        [Display(Name = "User Role")]
+        public string Roles { get; set; }
+
+        [Required]
+        [Display(Name = "UserName")]
+        public string UserName { get; set; }
+
+        [Required]
+        [DataType(DataType.MultilineText)]
+        [Display(Name = "Street Address")]
+        public string UserAddress { get; set; }
+
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "City")]
+        public string UserCity { get; set; }
+
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "State")]
+        public string UserState { get; set; }
+
+        [Required]
+        [DataType(DataType.PostalCode)]
+        [Display(Name = "Zip Code")]
+        public string UserZip { get; set; }
+
+        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }

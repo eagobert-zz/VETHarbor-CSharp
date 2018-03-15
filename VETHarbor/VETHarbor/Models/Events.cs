@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,6 +8,7 @@ namespace VETHarbor.Models
 {
     public class Events
     {
+        [Key]
         public int EventId { get; set; }
 
         public int OrgUserId { get; set; }
