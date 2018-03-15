@@ -16,10 +16,12 @@ using VETHarbor.Services;
 
 namespace VETHarbor.Controllers
 {
+
     [Authorize]
     [Route("[controller]/[action]")]
     public class ManageController : Controller
     {
+
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IEmailSender _emailSender;
@@ -42,6 +44,12 @@ namespace VETHarbor.Controllers
             _logger = logger;
             _urlEncoder = urlEncoder;
         }
+
+        private static string GuidString(ApplicationUser user)
+        {
+            return user.Id.ToString();
+        }
+
 
         [TempData]
         public string StatusMessage { get; set; }
@@ -122,7 +130,8 @@ namespace VETHarbor.Controllers
             }
 
             var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-            var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
+            string id = GuidString(user);
+            var callbackUrl = Url.EmailConfirmationLink(id, code, Request.Scheme);
             var email = user.Email;
             await _emailSender.SendEmailConfirmationAsync(email, callbackUrl);
 
@@ -267,7 +276,8 @@ namespace VETHarbor.Controllers
                 throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
-            var info = await _signInManager.GetExternalLoginInfoAsync(user.Id);
+            string id = GuidString(user);
+            var info = await _signInManager.GetExternalLoginInfoAsync(id);
             if (info == null)
             {
                 throw new ApplicationException($"Unexpected error occurred loading external login info for user with ID '{user.Id}'.");
