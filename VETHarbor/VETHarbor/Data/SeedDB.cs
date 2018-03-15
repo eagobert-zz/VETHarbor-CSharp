@@ -12,7 +12,7 @@ using VETHarbor.Models;
 namespace VETHarbor.Data
 {
 
-    public static class Seed
+    public static class SeedDB
     {
         public static async Task CreateRoles(IServiceProvider serviceProvider, IConfiguration Configuration)
         {

@@ -10,7 +10,7 @@ namespace VETHarbor.Models.AccountViewModels
     {
         [Required]
         [Display(Name = "User Role")]
-        public string Roles { get; set; }
+        public string RoleName { get; set; }
 
         [Required]
         [Display(Name = "UserName")]
