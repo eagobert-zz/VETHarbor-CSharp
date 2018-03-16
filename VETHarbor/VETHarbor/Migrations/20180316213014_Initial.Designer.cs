@@ -5,13 +5,14 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
+using Microsoft.EntityFrameworkCore.ValueGeneration;
 using System;
 using VETHarbor.Data;
 
 namespace VETHarbor.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180316032053_Initial")]
+    [Migration("20180316213014_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -74,6 +75,9 @@ namespace VETHarbor.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired();
+
                     b.Property<string>("Email")
                         .HasMaxLength(256);
 
@@ -113,6 +117,8 @@ namespace VETHarbor.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -180,54 +186,6 @@ namespace VETHarbor.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("VETHarbor.Models.ApplicationUser", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("AccessFailedCount");
-
-                    b.Property<string>("ConcurrencyStamp");
-
-                    b.Property<string>("Email");
-
-                    b.Property<bool>("EmailConfirmed");
-
-                    b.Property<bool>("LockoutEnabled");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd");
-
-                    b.Property<string>("NormalizedEmail");
-
-                    b.Property<string>("NormalizedUserName");
-
-                    b.Property<string>("PasswordHash");
-
-                    b.Property<string>("PhoneNumber");
-
-                    b.Property<bool>("PhoneNumberConfirmed");
-
-                    b.Property<string>("RoleClaim");
-
-                    b.Property<string>("SecurityStamp");
-
-                    b.Property<bool>("TwoFactorEnabled");
-
-                    b.Property<string>("UserAddress");
-
-                    b.Property<string>("UserCity");
-
-                    b.Property<string>("UserName");
-
-                    b.Property<string>("UserState");
-
-                    b.Property<string>("UserZip");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ApplicationUser");
-                });
-
             modelBuilder.Entity("VETHarbor.Models.Events", b =>
                 {
                     b.Property<int>("EventId")
@@ -277,7 +235,7 @@ namespace VETHarbor.Migrations
                     b.Property<int>("OrgUserId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid?>("ApplicationUserId");
+                    b.Property<string>("ApplicationUserId");
 
                     b.Property<int>("OrganizationId");
 
@@ -327,7 +285,7 @@ namespace VETHarbor.Migrations
                     b.Property<int>("UserEventId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid?>("ApplicationUserId");
+                    b.Property<string>("ApplicationUserId");
 
                     b.Property<int>("EventId");
 
@@ -347,7 +305,7 @@ namespace VETHarbor.Migrations
                     b.Property<int>("UserProgId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid?>("ApplicationUserId");
+                    b.Property<string>("ApplicationUserId");
 
                     b.Property<int>("ProgramId");
 
@@ -360,6 +318,25 @@ namespace VETHarbor.Migrations
                     b.HasIndex("ProgramId");
 
                     b.ToTable("User_Programs");
+                });
+
+            modelBuilder.Entity("VETHarbor.Models.ApplicationUser", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.Property<string>("RoleClaim");
+
+                    b.Property<string>("UserAddress");
+
+                    b.Property<string>("UserCity");
+
+                    b.Property<string>("UserState");
+
+                    b.Property<string>("UserZip");
+
+                    b.ToTable("ApplicationUser");
+
+                    b.HasDiscriminator().HasValue("ApplicationUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

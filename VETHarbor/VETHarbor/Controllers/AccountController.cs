@@ -24,6 +24,7 @@ namespace VETHarbor.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<ApplicationRole> _roleManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
@@ -31,12 +32,14 @@ namespace VETHarbor.Controllers
         public AccountController(
             ApplicationDbContext context,
             UserManager<ApplicationUser> userManager,
+            RoleManager<ApplicationRole> roleManager,
             SignInManager<ApplicationUser> signInManager,
             IEmailSender emailSender,
             ILogger<AccountController> logger)
         {
             _context = context;
             _userManager = userManager;
+            _roleManager = roleManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _logger = logger;
@@ -216,6 +219,10 @@ namespace VETHarbor.Controllers
         public IActionResult Register(string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
+            List<SelectListItem> list = new List<SelectListItem>();
+            foreach (var role in _roleManager.Roles)
+                list.Add(new SelectListItem() { Value = role.Name, Text = role.Name });
+            ViewBag.Roles = list;
             return View();
         }
 
@@ -229,26 +236,18 @@ namespace VETHarbor.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser
-                {
-                    
-                    UserName = model.UserName,
-                    UserAddress = model.UserAddress,
-                    UserCity = model.UserCity,
-                    UserState = model.UserState,
-                    UserZip = model.UserZip,
-                    Email = model.Email
-                };
-                var result = await _userManager.CreateAsync(user, model.Password);
+                var user = new ApplicationUser {UserName = model.UserName, UserAddress = model.UserAddress, UserCity = model.UserCity, UserState = model.UserState, UserZip = model.UserZip, Email = model.Email};
+                var result = await _userManager.CreateAsync(user: user, password: model.Password);
 
-                await _userManager.CreateAsync(user, model.RoleName);
+                //await _userManager.CreateAsync(user, model.RoleName);
 
                 if (result.Succeeded)
                 {
+                    
                     _logger.LogInformation("User created a new account with password.");
 
                     //Add a user to the default role, or any role you prefer here
-                    await _userManager.AddToRoleAsync(user, "User");
+                   result = await _userManager.AddToRoleAsync(user: user, role: model.RoleName);
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     _logger.LogInformation("User created a new account with password.");
