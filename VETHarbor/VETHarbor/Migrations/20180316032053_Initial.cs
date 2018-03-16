@@ -10,10 +10,40 @@ namespace VETHarbor.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "AspNetRoles",
+                name: "ApplicationUser",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
+                    AccessFailedCount = table.Column<int>(nullable: false),
+                    ConcurrencyStamp = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    EmailConfirmed = table.Column<bool>(nullable: false),
+                    LockoutEnabled = table.Column<bool>(nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
+                    NormalizedEmail = table.Column<string>(nullable: true),
+                    NormalizedUserName = table.Column<string>(nullable: true),
+                    PasswordHash = table.Column<string>(nullable: true),
+                    PhoneNumber = table.Column<string>(nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(nullable: false),
+                    RoleClaim = table.Column<string>(nullable: true),
+                    SecurityStamp = table.Column<string>(nullable: true),
+                    TwoFactorEnabled = table.Column<bool>(nullable: false),
+                    UserAddress = table.Column<string>(nullable: true),
+                    UserCity = table.Column<string>(nullable: true),
+                    UserName = table.Column<string>(nullable: true),
+                    UserState = table.Column<string>(nullable: true),
+                    UserZip = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ApplicationUser", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetRoles",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
                     ConcurrencyStamp = table.Column<string>(nullable: true),
                     Name = table.Column<string>(maxLength: 256, nullable: true),
                     NormalizedName = table.Column<string>(maxLength: 256, nullable: true)
@@ -27,7 +57,7 @@ namespace VETHarbor.Migrations
                 name: "AspNetUsers",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<string>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
                     ConcurrencyStamp = table.Column<string>(nullable: true),
                     Email = table.Column<string>(maxLength: 256, nullable: true),
@@ -41,11 +71,7 @@ namespace VETHarbor.Migrations
                     PhoneNumberConfirmed = table.Column<bool>(nullable: false),
                     SecurityStamp = table.Column<string>(nullable: true),
                     TwoFactorEnabled = table.Column<bool>(nullable: false),
-                    UserAddress = table.Column<string>(nullable: true),
-                    UserCity = table.Column<string>(nullable: true),
-                    UserName = table.Column<string>(maxLength: 256, nullable: true),
-                    UserState = table.Column<string>(nullable: true),
-                    UserZip = table.Column<string>(nullable: true)
+                    UserName = table.Column<string>(maxLength: 256, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -76,7 +102,7 @@ namespace VETHarbor.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true),
-                    RoleId = table.Column<Guid>(nullable: false)
+                    RoleId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -97,7 +123,7 @@ namespace VETHarbor.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true),
-                    UserId = table.Column<Guid>(nullable: false)
+                    UserId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -117,7 +143,7 @@ namespace VETHarbor.Migrations
                     LoginProvider = table.Column<string>(nullable: false),
                     ProviderKey = table.Column<string>(nullable: false),
                     ProviderDisplayName = table.Column<string>(nullable: true),
-                    UserId = table.Column<Guid>(nullable: false)
+                    UserId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -134,8 +160,8 @@ namespace VETHarbor.Migrations
                 name: "AspNetUserRoles",
                 columns: table => new
                 {
-                    UserId = table.Column<Guid>(nullable: false),
-                    RoleId = table.Column<Guid>(nullable: false)
+                    UserId = table.Column<string>(nullable: false),
+                    RoleId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -158,7 +184,7 @@ namespace VETHarbor.Migrations
                 name: "AspNetUserTokens",
                 columns: table => new
                 {
-                    UserId = table.Column<Guid>(nullable: false),
+                    UserId = table.Column<string>(nullable: false),
                     LoginProvider = table.Column<string>(nullable: false),
                     Name = table.Column<string>(nullable: false),
                     Value = table.Column<string>(nullable: true)
@@ -188,9 +214,9 @@ namespace VETHarbor.Migrations
                 {
                     table.PrimaryKey("PK_Organizational_User", x => x.OrgUserId);
                     table.ForeignKey(
-                        name: "FK_Organizational_User_AspNetUsers_ApplicationUserId",
+                        name: "FK_Organizational_User_ApplicationUser_ApplicationUserId",
                         column: x => x.ApplicationUserId,
-                        principalTable: "AspNetUsers",
+                        principalTable: "ApplicationUser",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -215,9 +241,9 @@ namespace VETHarbor.Migrations
                 {
                     table.PrimaryKey("PK_User_Events", x => x.UserEventId);
                     table.ForeignKey(
-                        name: "FK_User_Events_AspNetUsers_ApplicationUserId",
+                        name: "FK_User_Events_ApplicationUser_ApplicationUserId",
                         column: x => x.ApplicationUserId,
-                        principalTable: "AspNetUsers",
+                        principalTable: "ApplicationUser",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -266,9 +292,9 @@ namespace VETHarbor.Migrations
                 {
                     table.PrimaryKey("PK_User_Programs", x => x.UserProgId);
                     table.ForeignKey(
-                        name: "FK_User_Programs_AspNetUsers_ApplicationUserId",
+                        name: "FK_User_Programs_ApplicationUser_ApplicationUserId",
                         column: x => x.ApplicationUserId,
-                        principalTable: "AspNetUsers",
+                        principalTable: "ApplicationUser",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -414,18 +440,6 @@ namespace VETHarbor.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Organizational_User_AspNetUsers_ApplicationUserId",
-                table: "Organizational_User");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_User_Events_AspNetUsers_ApplicationUserId",
-                table: "User_Events");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_User_Programs_AspNetUsers_ApplicationUserId",
-                table: "User_Programs");
-
-            migrationBuilder.DropForeignKey(
                 name: "FK_Events_Organizational_User_OrgUserId",
                 table: "Events");
 
@@ -436,6 +450,10 @@ namespace VETHarbor.Migrations
             migrationBuilder.DropForeignKey(
                 name: "FK_Events_User_Events_User_EventsUserEventId",
                 table: "Events");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_User_Programs_ApplicationUser_ApplicationUserId",
+                table: "User_Programs");
 
             migrationBuilder.DropForeignKey(
                 name: "FK_Programs_User_Programs_User_ProgramsUserProgId",
@@ -473,6 +491,9 @@ namespace VETHarbor.Migrations
 
             migrationBuilder.DropTable(
                 name: "Events");
+
+            migrationBuilder.DropTable(
+                name: "ApplicationUser");
 
             migrationBuilder.DropTable(
                 name: "User_Programs");

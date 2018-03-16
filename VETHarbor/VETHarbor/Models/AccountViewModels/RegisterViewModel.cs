@@ -9,8 +9,8 @@ namespace VETHarbor.Models.AccountViewModels
     public class RegisterViewModel
     {
         [Required]
-        [Display(Name = "User Role")]
-        public string RoleName { get; set; }
+        [Display(Name = "Choose your role")]
+        public string RoleName { get; set;}
 
         [Required]
         [Display(Name = "UserName")]

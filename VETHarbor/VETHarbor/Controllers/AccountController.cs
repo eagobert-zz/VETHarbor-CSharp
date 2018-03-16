@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using VETHarbor.Data;
 using VETHarbor.Models;
 using VETHarbor.Models.AccountViewModels;
 using VETHarbor.Services;
@@ -20,17 +22,20 @@ namespace VETHarbor.Controllers
     [Route("[controller]/[action]")]
     public class AccountController : Controller
     {
+        private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
 
         public AccountController(
+            ApplicationDbContext context,
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IEmailSender emailSender,
             ILogger<AccountController> logger)
         {
+            _context = context;
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
@@ -219,11 +224,25 @@ namespace VETHarbor.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
         {
+            var userstore = new UserStore<ApplicationUser>(_context);
+
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser
+                {
+                    
+                    UserName = model.UserName,
+                    UserAddress = model.UserAddress,
+                    UserCity = model.UserCity,
+                    UserState = model.UserState,
+                    UserZip = model.UserZip,
+                    Email = model.Email
+                };
                 var result = await _userManager.CreateAsync(user, model.Password);
+
+                await _userManager.CreateAsync(user, model.RoleName);
+
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");

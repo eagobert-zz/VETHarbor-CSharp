@@ -11,6 +11,40 @@
             <h4>Create a new account.</h4>
             <hr />
             <div asp-validation-summary="All" class="text-danger"></div>
+            @*<div class="form-group">
+                <label asp-for="RoleId"></label>
+                <input asp-for="RoleId" class="form-control" />
+                <span asp-validation-for="RoleId" class="text-danger"></span>
+            </div>*@
+
+            <div class="form-group">
+                <label asp-for="UserName"></label>
+                <input asp-for="UserName" class="form-control" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="UserAddress"></label>
+                <input asp-for="UserAddress" class="form-control" />
+                <span asp-validation-for="UserAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserCity"></label>
+                <input asp-for="UserCity" class="form-control" />
+                <span asp-validation-for="UserCity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserState"></label>
+                <input asp-for="UserState" class="form-control" />
+                <span asp-validation-for="UserState" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="UserZip"></label>
+                <input asp-for="UserZip" class="form-control" />
+                <span asp-validation-for="UserZip" class="text-danger"></span>
+            </div>
+
             <div class="form-group">
                 <label asp-for="Email"></label>
                 <input asp-for="Email" class="form-control" />

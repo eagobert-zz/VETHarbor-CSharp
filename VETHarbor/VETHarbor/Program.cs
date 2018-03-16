@@ -25,7 +25,7 @@ namespace VETHarbor
                 {
                     var serviceProvider = services.GetRequiredService<IServiceProvider>();
                     var configuration = services.GetRequiredService<IConfiguration>();
-                    SeedDB.CreateRoles(serviceProvider, configuration).Wait();
+                  //  SeedDB.CreateRoles(serviceProvider, configuration).Wait();
 
                 }
                 catch (Exception exception)
