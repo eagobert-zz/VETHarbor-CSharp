@@ -12,7 +12,7 @@ using VETHarbor.Data;
 namespace VETHarbor.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180317022608_Initial")]
+    [Migration("20180317031521_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -30,6 +30,9 @@ namespace VETHarbor.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired();
+
                     b.Property<string>("Name")
                         .HasMaxLength(256);
 
@@ -44,6 +47,8 @@ namespace VETHarbor.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityRole");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -318,6 +323,16 @@ namespace VETHarbor.Migrations
                     b.HasIndex("ProgramId");
 
                     b.ToTable("User_Programs");
+                });
+
+            modelBuilder.Entity("VETHarbor.Models.ApplicationRole", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityRole");
+
+
+                    b.ToTable("ApplicationRole");
+
+                    b.HasDiscriminator().HasValue("ApplicationRole");
                 });
 
             modelBuilder.Entity("VETHarbor.Models.ApplicationUser", b =>

@@ -15,7 +15,7 @@ namespace VETHarbor.Data
         {
         }
 
-       
+        public DbSet<ApplicationRole> ApplicationRoles { get; set; }
         public DbSet<Organization> Organizations { get; set; }
         public DbSet<User_Programs> User_Programs { get; set; }
         public DbSet<User_Events> User_Events { get; set; }

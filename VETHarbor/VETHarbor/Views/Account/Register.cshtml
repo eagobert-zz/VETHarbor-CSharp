@@ -12,9 +12,9 @@
             <hr />
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
-                @Html.LabelFor(m => m.RoleName, new { @class = "col-md-2 control-label" })
-                <div class="col-md-10">
-                    @Html.DropDownListFor(m => m.RoleName, new SelectList(ViewBag.Roles, "Value", "Text"), new {@class = "form-control" })
+                @Html.LabelFor(m => m.Roles, new { @class = "control-label" })
+                <div class="">
+                    @Html.DropDownListFor(m => m.Roles, new SelectList(ViewBag.Roles, "Value", "Text"), new {@class = "form-control" })
                 </div>
             </div>
 

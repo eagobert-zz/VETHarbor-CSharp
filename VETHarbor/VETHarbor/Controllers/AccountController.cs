@@ -247,7 +247,7 @@ namespace VETHarbor.Controllers
                     _logger.LogInformation("User created a new account with password.");
 
                     //Add a user to the default role, or any role you prefer here
-                   result = await _userManager.AddToRoleAsync(user: user, role: model.RoleName);
+                   result = await _userManager.AddToRoleAsync(user: user, role: model.Roles);
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     _logger.LogInformation("User created a new account with password.");
