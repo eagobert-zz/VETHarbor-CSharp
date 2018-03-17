@@ -12,9 +12,10 @@ using VETHarbor.Data;
 namespace VETHarbor.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180317185825_Update_AppUser_Role")]
+    partial class Update_AppUser_Role
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -339,6 +340,8 @@ namespace VETHarbor.Migrations
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
                     b.Property<string>("ApplicationRoleId");
+
+                    b.Property<string>("RoleName");
 
                     b.Property<string>("UserAddress");
 
