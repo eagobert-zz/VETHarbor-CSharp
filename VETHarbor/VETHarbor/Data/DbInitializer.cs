@@ -17,10 +17,12 @@ namespace VETHarbor.Data
     {
         public static async Task CreateRoles(IServiceProvider serviceProvider, IConfiguration Configuration)
         {
-            //adding custom roles
+            
             var RoleManager = serviceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
             var UserManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
+
+            //adding custom roles
             string[] roleNames = { "User", "Administrator" };
             IdentityResult roleResult;
 
@@ -31,26 +33,6 @@ namespace VETHarbor.Data
                 if (!roleExist)
                 {
                     roleResult = await RoleManager.CreateAsync(new ApplicationRole(roleName));
-                }
-            }
-
-            // creating a super user who could maintain the web app at startup
-            var poweruser = new ApplicationUser
-            {
-                UserName = Configuration.GetSection("AppSettings")["UserEmail"],
-                Email = Configuration.GetSection("AppSettings")["UserEmail"]
-            };
-
-            string userPassword = Configuration.GetSection("AppSettings")["UserPassword"];
-            var user = await UserManager.FindByEmailAsync(Configuration.GetSection("AppSettings")["UserEmail"]);
-
-            if (user == null)
-            {
-                var createPowerUser = await UserManager.CreateAsync(poweruser, userPassword);
-                if (createPowerUser.Succeeded)
-                {
-                    // here we assign the new Power User the "Administrator" role 
-                    await UserManager.AddToRoleAsync(poweruser, "Administrator");
                 }
             }
 

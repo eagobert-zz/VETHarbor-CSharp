@@ -12,7 +12,7 @@ using VETHarbor.Data;
 namespace VETHarbor.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180317183957_Initial")]
+    [Migration("20180317221429_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -339,7 +339,9 @@ namespace VETHarbor.Migrations
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
-                    b.Property<string>("RoleClaim");
+                    b.Property<string>("ApplicationRoleId");
+
+                    b.Property<string>("Name");
 
                     b.Property<string>("UserAddress");
 
@@ -348,6 +350,8 @@ namespace VETHarbor.Migrations
                     b.Property<string>("UserState");
 
                     b.Property<string>("UserZip");
+
+                    b.HasIndex("ApplicationRoleId");
 
                     b.ToTable("ApplicationUser");
 
@@ -457,6 +461,13 @@ namespace VETHarbor.Migrations
                         .WithMany()
                         .HasForeignKey("ProgramId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("VETHarbor.Models.ApplicationUser", b =>
+                {
+                    b.HasOne("VETHarbor.Models.ApplicationRole", "ApplicationRole")
+                        .WithMany()
+                        .HasForeignKey("ApplicationRoleId");
                 });
 #pragma warning restore 612, 618
         }

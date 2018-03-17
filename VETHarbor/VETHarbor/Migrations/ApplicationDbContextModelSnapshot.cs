@@ -340,6 +340,8 @@ namespace VETHarbor.Migrations
 
                     b.Property<string>("ApplicationRoleId");
 
+                    b.Property<string>("Name");
+
                     b.Property<string>("UserAddress");
 
                     b.Property<string>("UserCity");

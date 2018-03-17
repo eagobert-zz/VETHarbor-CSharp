@@ -15,8 +15,7 @@ namespace VETHarbor.Models
         public string UserCity { get; set; }
         public string UserState { get; set; }
         public string UserZip { get; set; }
+        public string Name { get; set; }
         public ApplicationRole ApplicationRole { get; set; }
-
-
     }
 }

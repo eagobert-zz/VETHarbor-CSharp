@@ -221,7 +221,7 @@ namespace VETHarbor.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             List<SelectListItem> list = new List<SelectListItem>();
             foreach (var role in _roleManager.Roles)
-                list.Add(new SelectListItem() { Value = role.Name, Text = role.Name });
+                list.Add(new SelectListItem() { Value = role.Id, Text = role.Name });
             ViewBag.Roles = list;
             return View();
         }
@@ -236,10 +236,10 @@ namespace VETHarbor.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser {UserName = model.UserName, UserAddress = model.UserAddress, UserCity = model.UserCity, UserState = model.UserState, UserZip = model.UserZip, Email = model.Email};
+                var user = new ApplicationUser {Name = model.Roles,UserName = model.UserName, UserAddress = model.UserAddress, UserCity = model.UserCity, UserState = model.UserState, UserZip = model.UserZip, Email = model.Email};
                 var result = await _userManager.CreateAsync(user: user, password: model.Password);
 
-                //await _userManager.CreateAsync(user, model.RoleName);
+                await _userManager.CreateAsync(user, model.Roles);
 
                 if (result.Succeeded)
                 {
