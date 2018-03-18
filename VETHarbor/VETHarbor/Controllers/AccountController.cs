@@ -236,23 +236,46 @@ namespace VETHarbor.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser {Name = model.Roles,UserName = model.UserName, UserAddress = model.UserAddress, UserCity = model.UserCity, UserState = model.UserState, UserZip = model.UserZip, Email = model.Email};
+                var user = new ApplicationUser {UserName = model.UserName, UserAddress = model.UserAddress, UserCity = model.UserCity, UserState = model.UserState, UserZip = model.UserZip, Email = model.Email};
                 var result = await _userManager.CreateAsync(user: user, password: model.Password);
 
-                await _userManager.CreateAsync(user, model.Roles);
 
                 if (result.Succeeded)
                 {
-                    
-                    _logger.LogInformation("User created a new account with password.");
 
-                    //Add a user to the default role, or any role you prefer here
-                   result = await _userManager.AddToRoleAsync(user: user, role: model.Roles);
+                    // _logger.LogInformation("User created a new account with password.");
+
+                   var role = model.Roles;
+                   IdentityResult roleResult;
+
+                    var UserRoleExists = await _roleManager.RoleExistsAsync("User");
+                    if (!UserRoleExists)
+                    {
+                        roleResult = await _roleManager.CreateAsync(new ApplicationRole("User"));
+
+                    }
+                    else
+                    {
+                        roleResult = await _userManager.AddToRoleAsync(await _userManager.FindByIdAsync(user.Id), "User");
+                    }
+
+                    var AdminRoleExists = await _roleManager.RoleExistsAsync("User");
+                    if (!AdminRoleExists)
+                    {
+                        roleResult = await _roleManager.CreateAsync(new ApplicationRole("Administrator"));
+
+                    }
+                    else
+                    {
+                        roleResult = await _userManager.AddToRoleAsync(await _userManager.FindByIdAsync(user.Id), "Administrator");
+                    }
+
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
-                    _logger.LogInformation("User created a new account with password.");
+                    _logger.LogInformation("User created a new account with password. Role Added");
                     return RedirectToLocal(returnUrl);
                 }
+
                 AddErrors(result);
             }
 

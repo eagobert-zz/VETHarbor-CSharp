@@ -10,5 +10,6 @@ namespace VETHarbor.Models
     {
         public ApplicationRole() : base() { }
         public ApplicationRole(string roleName) : base(roleName) { }
+
     }
 }

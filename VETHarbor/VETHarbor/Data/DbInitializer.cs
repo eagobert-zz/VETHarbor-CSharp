@@ -33,9 +33,18 @@ namespace VETHarbor.Data
                 if (!roleExist)
                 {
                     roleResult = await RoleManager.CreateAsync(new ApplicationRole(roleName));
+
                 }
             }
 
+            //adding Admin User
+            var user = new ApplicationUser();
+            user.UserName = "admin@VETHarbor.com";
+            user.UserAddress = "123 Fake Street";
+            user.UserCity = "Nashville";
+            user.UserState = "TN";
+            user.UserZip = "37076";
+            user.Email = "admin@VETHarbor.com";
         }
 
     }
