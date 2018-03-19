@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,10 +8,11 @@ namespace VETHarbor.Models
 {
     public class Programs
     {
+        [Key]
         public int ProgramId { get; set; }
 
         public int OrgUserId { get; set; }
-        public Organizational_User organizational_User { get; set; }
+        public Organizational_User Organizational_User { get; set; }
 
         public string ProgramTitle { get; set; }
         public string ProgramCity { get; set; }

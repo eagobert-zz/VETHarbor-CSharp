@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using VETHarbor.Data;
 using VETHarbor.Models;
 using VETHarbor.Models.AccountViewModels;
 using VETHarbor.Services;
@@ -20,22 +22,30 @@ namespace VETHarbor.Controllers
     [Route("[controller]/[action]")]
     public class AccountController : Controller
     {
+        private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<ApplicationRole> _roleManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
 
         public AccountController(
+            ApplicationDbContext context,
             UserManager<ApplicationUser> userManager,
+            RoleManager<ApplicationRole> roleManager,
             SignInManager<ApplicationUser> signInManager,
             IEmailSender emailSender,
             ILogger<AccountController> logger)
         {
+            _context = context;
             _userManager = userManager;
+            _roleManager = roleManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _logger = logger;
         }
+
+        private static string GuidString(ApplicationUser user) => user.Id.ToString();
 
         [TempData]
         public string ErrorMessage { get; set; }
@@ -209,6 +219,10 @@ namespace VETHarbor.Controllers
         public IActionResult Register(string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
+            List<SelectListItem> list = new List<SelectListItem>();
+            list.Add(new SelectListItem() { Value = "User", Text = "User" });
+            list.Add(new SelectListItem() { Value = "Administrator", Text = "Administrator" });
+            ViewBag.Roles = list;
             return View();
         }
 
@@ -217,24 +231,42 @@ namespace VETHarbor.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
         {
+            var userstore = new UserStore<ApplicationUser>(_context);
+
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await _userManager.CreateAsync(user, model.Password);
+                ApplicationUser user = new ApplicationUser { UserName = model.UserName, UserAddress = model.UserAddress, UserCity = model.UserCity, UserState = model.UserState, UserZip = model.UserZip, Email = model.Email};
+                IdentityResult result = _userManager.CreateAsync(user: user, password: model.Password).Result;
+
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("User created a new account with password.");
+                   var CurrentRole = model.Roles;
+                   var RoleExists = _roleManager.RoleExistsAsync(CurrentRole);
 
-                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
-                    await _emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
+                    if (!RoleExists.Result)
+                    {
+                        ApplicationRole role = new ApplicationRole
+                        {
+                            Name = CurrentRole
+                        };
 
+                        IdentityResult roleResult = _roleManager.CreateAsync(role).Result;
+
+                        if (!roleResult.Succeeded)
+                        {
+                            ModelState.AddModelError("", "Error while creating role!");
+                            return View(model);
+                        }
+
+                    }
+
+                    _userManager.AddToRoleAsync(user, CurrentRole).Wait();
                     await _signInManager.SignInAsync(user, isPersistent: false);
-                    _logger.LogInformation("User created a new account with password.");
+                    _logger.LogInformation("User created a new account with password. Role Added");
                     return RedirectToLocal(returnUrl);
+    
                 }
-                AddErrors(result);
             }
 
             // If we got this far, something failed, redisplay form
@@ -370,7 +402,8 @@ namespace VETHarbor.Controllers
                 // For more information on how to enable account confirmation and password reset please
                 // visit https://go.microsoft.com/fwlink/?LinkID=532713
                 var code = await _userManager.GeneratePasswordResetTokenAsync(user);
-                var callbackUrl = Url.ResetPasswordCallbackLink(user.Id, code, Request.Scheme);
+                string id = GuidString(user);
+                var callbackUrl = Url.ResetPasswordCallbackLink(id, code, Request.Scheme);
                 await _emailSender.SendEmailAsync(model.Email, "Reset Password",
                    $"Please reset your password by clicking here: <a href='{callbackUrl}'>link</a>");
                 return RedirectToAction(nameof(ForgotPasswordConfirmation));
