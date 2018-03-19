@@ -25,7 +25,7 @@ namespace VETHarbor
                 {
                     var serviceProvider = services.GetRequiredService<IServiceProvider>();
                     var configuration = services.GetRequiredService<IConfiguration>();
-                  DbInitializer.CreateRoles(serviceProvider, configuration).Wait();
+                // DbInitializer.CreateRoles(serviceProvider, configuration).Wait();
 
                 }
                 catch (Exception exception)

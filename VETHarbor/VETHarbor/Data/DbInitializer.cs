@@ -15,37 +15,39 @@ namespace VETHarbor.Data
 
     public class DbInitializer
     {
-        public static async Task CreateRoles(IServiceProvider serviceProvider, IConfiguration Configuration)
-        {
+        //public static async Task CreateRoles(IServiceProvider serviceProvider, IConfiguration Configuration)
+        //{
             
-            var RoleManager = serviceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
-            var UserManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+        //    var RoleManager = serviceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
+        //    var UserManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
 
-            //adding custom roles
-            string[] roleNames = { "User", "Administrator" };
-            IdentityResult roleResult;
+        //    //adding custom roles
+        //    string[] roleNames = { "User", "Administrator" };
+        //    IdentityResult roleResult;
 
-            foreach (var roleName in roleNames)
-            {
-                // creating the roles and seeding them to the database
-                var roleExist = await RoleManager.RoleExistsAsync(roleName);
-                if (!roleExist)
-                {
-                    roleResult = await RoleManager.CreateAsync(new ApplicationRole(roleName));
+        //    foreach (var Name in roleNames)
+        //    {
+        //        // creating the roles and seeding them to the database
+        //        var roleExist = await RoleManager.RoleExistsAsync(Name);
+        //        if (!roleExist)
+        //        {
+        //            roleResult = await RoleManager.CreateAsync(new ApplicationRole(Name));
 
-                }
-            }
+        //        }
+        //    }
 
-            //adding Admin User
-            var user = new ApplicationUser();
-            user.UserName = "admin@VETHarbor.com";
-            user.UserAddress = "123 Fake Street";
-            user.UserCity = "Nashville";
-            user.UserState = "TN";
-            user.UserZip = "37076";
-            user.Email = "admin@VETHarbor.com";
-        }
+        //    //adding Admin User
+        //    var user = new ApplicationUser
+        //    {
+        //        UserName = "admin@VETHarbor.com",
+        //        UserAddress = "123 Fake Street",
+        //        UserCity = "Nashville",
+        //        UserState = "TN",
+        //        UserZip = "37076",
+        //        Email = "admin@VETHarbor.com"
+        //    };
+        //}
 
     }
 }

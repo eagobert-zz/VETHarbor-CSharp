@@ -220,8 +220,8 @@ namespace VETHarbor.Controllers
         {
             ViewData["ReturnUrl"] = returnUrl;
             List<SelectListItem> list = new List<SelectListItem>();
-            foreach (var role in _roleManager.Roles)
-                list.Add(new SelectListItem() { Value = role.Id, Text = role.Name });
+            list.Add(new SelectListItem() { Value = "User", Text = "User" });
+            list.Add(new SelectListItem() { Value = "Administrator", Text = "Administrator" });
             ViewBag.Roles = list;
             return View();
         }
@@ -236,47 +236,37 @@ namespace VETHarbor.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser {UserName = model.UserName, UserAddress = model.UserAddress, UserCity = model.UserCity, UserState = model.UserState, UserZip = model.UserZip, Email = model.Email};
-                var result = await _userManager.CreateAsync(user: user, password: model.Password);
-
+                ApplicationUser user = new ApplicationUser { UserName = model.UserName, UserAddress = model.UserAddress, UserCity = model.UserCity, UserState = model.UserState, UserZip = model.UserZip, Email = model.Email};
+                IdentityResult result = _userManager.CreateAsync(user: user, password: model.Password).Result;
 
                 if (result.Succeeded)
                 {
+                   var CurrentRole = model.Roles;
+                   var RoleExists = _roleManager.RoleExistsAsync(CurrentRole);
 
-                    // _logger.LogInformation("User created a new account with password.");
-
-                   var role = model.Roles;
-                   IdentityResult roleResult;
-
-                    var UserRoleExists = await _roleManager.RoleExistsAsync("User");
-                    if (!UserRoleExists)
+                    if (!RoleExists.Result)
                     {
-                        roleResult = await _roleManager.CreateAsync(new ApplicationRole("User"));
+                        ApplicationRole role = new ApplicationRole
+                        {
+                            Name = CurrentRole
+                        };
+
+                        IdentityResult roleResult = _roleManager.CreateAsync(role).Result;
+
+                        if (!roleResult.Succeeded)
+                        {
+                            ModelState.AddModelError("", "Error while creating role!");
+                            return View(model);
+                        }
 
                     }
-                    else
-                    {
-                        roleResult = await _userManager.AddToRoleAsync(await _userManager.FindByIdAsync(user.Id), "User");
-                    }
 
-                    var AdminRoleExists = await _roleManager.RoleExistsAsync("User");
-                    if (!AdminRoleExists)
-                    {
-                        roleResult = await _roleManager.CreateAsync(new ApplicationRole("Administrator"));
-
-                    }
-                    else
-                    {
-                        roleResult = await _userManager.AddToRoleAsync(await _userManager.FindByIdAsync(user.Id), "Administrator");
-                    }
-
-
+                    _userManager.AddToRoleAsync(user, CurrentRole).Wait();
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     _logger.LogInformation("User created a new account with password. Role Added");
                     return RedirectToLocal(returnUrl);
+    
                 }
-
-                AddErrors(result);
             }
 
             // If we got this far, something failed, redisplay form
