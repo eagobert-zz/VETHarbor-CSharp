@@ -1,0 +1,13 @@
+{
+  "version": "1.0.0",
+  "name": "vetharbor",
+  "private": true,
+  "devDependencies": {
+    "gulp": "3.9.1",
+    "jquery": "3.3.1",
+    "bootstrap": "4.0.0",
+    "material-kit": "2.0.2",
+    "lodash": "4.17.5"
+  },
+  "dependencies": {}
+}
