@@ -4,6 +4,7 @@
   "private": true,
   "devDependencies": {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     "del": "3.0.0",
     "gulp": "3.9.1",
@@ -21,3 +22,13 @@
     "popper.js": "1.14.1"
   }
 }
+=======
+    "gulp": "3.9.1",
+    "jquery": "3.3.1",
+    "bootstrap": "4.0.0",
+    "material-kit": "2.0.2",
+    "lodash": "4.17.5"
+  },
+  "dependencies": {}
+}
+>>>>>>> parent of 9674fe0... Update files

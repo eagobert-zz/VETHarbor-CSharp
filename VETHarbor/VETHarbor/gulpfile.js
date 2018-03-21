@@ -12,8 +12,14 @@ gulp.task('copy-assets', function () {
         ],
         css: ['./node_modules/material-kit/assets/css/material-kit.css'],
 
+<<<<<<< HEAD
         scss: ['./node_modules/material-kit/assets/scss/material-kit.scss'],
         img: ['./node_modules/material-kit/assets/img/kit/**/*.jpg']
+=======
+        scss: ['./node_modules/material-kit/assets/scss/**/*.scss'],
+        img: ['./node_modules/material-kit/assets/img/kit/**/*.jpg',
+            './node_modules/material-kit/assets/img/kit/**/*.png']
+>>>>>>> parent of 9674fe0... Update files
     };
     _(assets).forEach(function (assets, type) {
         gulp.src(assets).pipe(gulp.dest('./wwwroot/' + type));
