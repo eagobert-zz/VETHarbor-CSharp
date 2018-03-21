@@ -14,5 +14,6 @@ namespace VETHarbor.Models
         public string OrganizationAddress { get; set; }
         public string OrganizationCity { get; set; }
         public string OrganizationState { get; set; }
+        public string OrganizationZip { get; set; }
     }
 }

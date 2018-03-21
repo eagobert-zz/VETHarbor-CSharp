@@ -13,41 +13,37 @@ using VETHarbor.Models;
 namespace VETHarbor.Data
 {
 
-    public class DbInitializer
-    {
-        //public static async Task CreateRoles(IServiceProvider serviceProvider, IConfiguration Configuration)
-        //{
-            
-        //    var RoleManager = serviceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
-        //    var UserManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+    //public static class DbInitializer
+    //{
+    //    public static async Task Initialize(IServiceProvider serviceProvider, IConfiguration Configuration)
+    //    {
+    //        var context = serviceProvider.GetRequiredService<ApplicationDbContext>();
+    //        {
+    //            // Look for any organizations.
+    //            if (context.Organizations.Any())
+    //            {
+    //                return;   // DB has been seeded
+    //            }
 
-
-        //    //adding custom roles
-        //    string[] roleNames = { "User", "Administrator" };
-        //    IdentityResult roleResult;
-
-        //    foreach (var Name in roleNames)
-        //    {
-        //        // creating the roles and seeding them to the database
-        //        var roleExist = await RoleManager.RoleExistsAsync(Name);
-        //        if (!roleExist)
-        //        {
-        //            roleResult = await RoleManager.CreateAsync(new ApplicationRole(Name));
-
-        //        }
-        //    }
-
-        //    //adding Admin User
-        //    var user = new ApplicationUser
-        //    {
-        //        UserName = "admin@VETHarbor.com",
-        //        UserAddress = "123 Fake Street",
-        //        UserCity = "Nashville",
-        //        UserState = "TN",
-        //        UserZip = "37076",
-        //        Email = "admin@VETHarbor.com"
-        //    };
-        //}
-
-    }
+    //            context.Organizations.AddRange(
+    //                 new Organization
+    //                 {
+                           
+    //                       OrganizationName = "VETHarbor",
+    //                       OrganizationAddress = "123 Fake Street",
+    //                       OrganizationCity = "Nashville",
+    //                       OrganizationState = "TN",
+    //                 },
+    //               new Organization
+    //               {
+    //                   OrganizationName = "Atlanta Veteran's Affairs",
+    //                   OrganizationAddress = "123 Fake Street",
+    //                   OrganizationCity = "Atlanta",
+    //                   OrganizationState = "GA",
+    //               }
+    //            );
+    //          //  context.SaveChanges();
+    //        }
+    //    }
+    //}
 }

@@ -236,7 +236,7 @@ namespace VETHarbor.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                ApplicationUser user = new ApplicationUser { UserName = model.UserName, UserAddress = model.UserAddress, UserCity = model.UserCity, UserState = model.UserState, UserZip = model.UserZip, Email = model.Email};
+                ApplicationUser user = new ApplicationUser { UserName = model.UserName, Email = model.Email};
                 IdentityResult result = _userManager.CreateAsync(user: user, password: model.Password).Result;
 
                 if (result.Succeeded)

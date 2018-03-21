@@ -63,7 +63,7 @@ namespace VETHarbor.Controllers
                 throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
-            var model = new IndexViewModel
+            var model = new ProfileViewModel
             {
                 Username = user.UserName,
                 Email = user.Email,
@@ -77,7 +77,7 @@ namespace VETHarbor.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Index(IndexViewModel model)
+        public async Task<IActionResult> Index(ProfileViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -116,7 +116,7 @@ namespace VETHarbor.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SendVerificationEmail(IndexViewModel model)
+        public async Task<IActionResult> SendVerificationEmail(ProfileViewModel model)
         {
             if (!ModelState.IsValid)
             {
