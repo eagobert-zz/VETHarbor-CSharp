@@ -15,6 +15,7 @@ namespace VETHarbor.Data
         {
         }
 
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<ApplicationRole> ApplicationRoles { get; set; }
         public DbSet<Organization> Organizations { get; set; }
         public DbSet<User_Programs> User_Programs { get; set; }
@@ -36,6 +37,8 @@ namespace VETHarbor.Data
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Cascade);
         }
+
+        public DbSet<VETHarbor.Models.ApplicationUser> ApplicationUser { get; set; }
 
     }
 }

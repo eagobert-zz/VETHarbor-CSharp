@@ -8,7 +8,9 @@ using System.Threading.Tasks;
 namespace VETHarbor.Models.ManageViewModels
 {
     public class ProfileViewModel
+
     {
+
         public string Username { get; set; }
 
         public bool IsEmailConfirmed { get; set; }
