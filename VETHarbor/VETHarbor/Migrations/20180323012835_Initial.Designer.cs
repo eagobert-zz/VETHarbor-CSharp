@@ -11,8 +11,8 @@ using VETHarbor.Data;
 namespace VETHarbor.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180322144232_UpdateDbSets")]
-    partial class UpdateDbSets
+    [Migration("20180323012835_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -218,6 +218,10 @@ namespace VETHarbor.Migrations
                 {
                     b.Property<int>("OrganizationId")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ImageUrl");
+
+                    b.Property<string>("OrgUrl");
 
                     b.Property<string>("OrganizationAddress");
 

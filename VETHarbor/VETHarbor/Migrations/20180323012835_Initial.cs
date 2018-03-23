@@ -58,10 +58,13 @@ namespace VETHarbor.Migrations
                 {
                     OrganizationId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ImageUrl = table.Column<string>(nullable: true),
+                    OrgUrl = table.Column<string>(nullable: true),
                     OrganizationAddress = table.Column<string>(nullable: true),
                     OrganizationCity = table.Column<string>(nullable: true),
                     OrganizationName = table.Column<string>(nullable: true),
-                    OrganizationState = table.Column<string>(nullable: true)
+                    OrganizationState = table.Column<string>(nullable: true),
+                    OrganizationZip = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

@@ -2,7 +2,6 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 @inject RoleManager<ApplicationRole> RoleManager
-
 @model ProfileViewModel
 @{
     ViewData["Title"] = "Profile";
@@ -10,7 +9,7 @@
 }
 
 <h4>@ViewData["Title"]</h4>
-@Html.Partial("_StatusMessage", Model.StatusMessage)
+@*@Html.Partial("_StatusMessage", Model.StatusMessage)*@
 <div class="row">
     <div class="col-md-6">
         <form method="post">
@@ -78,33 +77,9 @@ else
             @if (SignInManager.IsSignedIn(User) & User.IsInRole("Administrator"))
     {
 
+        @await Component.InvokeAsync("Organization")
 
-        <div class="form-group">
-            <label asp-for="OrganizationName"></label>
-            <input asp-for="OrganizationName" class="form-control" />
-            <span asp-validation-for="OrganizationName" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="OrganizationAddress"></label>
-            <input asp-for="OrganizationAddress" class="form-control" />
-            <span asp-validation-for="OrganizationAddress" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="OrganizationCity"></label>
-            <input asp-for="OrganizationCity" class="form-control" />
-            <span asp-validation-for="OrganizationCity" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="OrganizationState"></label>
-            <input asp-for="OrganizationState" class="form-control" />
-            <span asp-validation-for="OrganizationState" class="text-danger"></span>
-        </div>
-
-        <div class="form-group">
-            <label asp-for="OrganizationZip"></label>
-            <input asp-for="OrganizationZip" class="form-control" />
-            <span asp-validation-for="OrganizationZip" class="text-danger"></span>
-        </div>
+ 
 
 }
             <button type="submit" class="btn btn-default">Save</button>

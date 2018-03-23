@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using VETHarbor.Models;
+using VETHarbor.Models.ManageViewModels;
+using VETHarbor.ViewComponents;
 
 namespace VETHarbor.Data
 {
@@ -38,7 +40,9 @@ namespace VETHarbor.Data
                 .OnDelete(DeleteBehavior.Cascade);
         }
 
-        public DbSet<VETHarbor.Models.ApplicationUser> ApplicationUser { get; set; }
+        public DbSet<VETHarbor.ViewComponents.OrganizationViewModel> OrganizationViewModel { get; set; }
+
+
 
     }
 }

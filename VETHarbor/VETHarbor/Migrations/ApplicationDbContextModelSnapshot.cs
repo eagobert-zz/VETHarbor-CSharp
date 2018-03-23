@@ -218,6 +218,10 @@ namespace VETHarbor.Migrations
                     b.Property<int>("OrganizationId")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("ImageUrl");
+
+                    b.Property<string>("OrgUrl");
+
                     b.Property<string>("OrganizationAddress");
 
                     b.Property<string>("OrganizationCity");

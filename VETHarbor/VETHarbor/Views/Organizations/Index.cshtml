@@ -24,6 +24,15 @@
                 <th>
                     @Html.DisplayNameFor(model => model.OrganizationState)
                 </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.OrganizationZip)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ImageUrl)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.OrgUrl)
+                </th>
             <th></th>
         </tr>
     </thead>
@@ -41,6 +50,15 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.OrganizationState)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrganizationZip)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ImageUrl)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrgUrl)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.OrganizationId">Edit</a> |

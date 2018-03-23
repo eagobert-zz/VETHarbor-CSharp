@@ -14,6 +14,7 @@ using VETHarbor.Data;
 using VETHarbor.Models;
 using VETHarbor.Models.ManageViewModels;
 using VETHarbor.Services;
+using VETHarbor.ViewComponents;
 
 namespace VETHarbor.Controllers
 {
@@ -61,14 +62,16 @@ namespace VETHarbor.Controllers
         public async Task<IActionResult> Index()
         {
             var user = await _userManager.GetUserAsync(User);
+
+
             if (user == null)
             {
                 throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
-            var model = new ProfileViewModel
+            ProfileViewModel model = new ProfileViewModel
             {
-              
+
                 Username = user.UserName,
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
@@ -79,8 +82,15 @@ namespace VETHarbor.Controllers
                 UserAddress = user.UserAddress,
                 UserCity = user.UserCity,
                 UserState = user.UserState,
-                UserZip = user.UserZip
-            };
+                UserZip = user.UserZip,
+
+              
+            //    model.OrganizationAddress = ;
+            //    model.OrganizationCity = ;
+            //    model.OrganizationState = ;
+            //    model.OrganizationZip = ;
+
+        };
 
             return View(model);
         }
@@ -95,10 +105,7 @@ namespace VETHarbor.Controllers
             }
 
             var user = await _userManager.GetUserAsync(User);
-
-
-            //user.Email = model.Email;
-            //user.PhoneNumber = model.PhoneNumber;
+           
 
             //Additional User Info
             user.UserAddress = model.UserAddress;
@@ -109,73 +116,6 @@ namespace VETHarbor.Controllers
             _context.Update(user);
            await _context.SaveChangesAsync();
 
-
-
-           
-            //if (user == null)
-            //{
-            //    throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
-            //}
-
-            //var email = user.Email;
-            //if (model.Email != email)
-            //{
-            //    var setEmailResult = await _userManager.SetEmailAsync(user, model.Email);
-            //    if (!setEmailResult.Succeeded)
-            //    {
-            //        throw new ApplicationException($"Unexpected error occurred setting email for user with ID '{user.Id}'.");
-            //    }
-            //}
-
-            //var phoneNumber = user.PhoneNumber;
-            //if (model.PhoneNumber != phoneNumber)
-            //{
-            //    var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, model.PhoneNumber);
-            //    if (!setPhoneResult.Succeeded)
-            //    {
-            //        throw new ApplicationException($"Unexpected error occurred setting phone number for user with ID '{user.Id}'.");
-            //    }
-            //}
-
-            //var UserAddress = user.UserAddress;
-            //if (model.UserAddress != UserAddress)
-            //{
-            //    var setUserAddressResult = await _userManager.UpdateAsync(user);
-            //    if (!setUserAddressResult.Succeeded)
-            //    {
-            //        throw new ApplicationException($"Unexpected error occurred setting user address for user with ID '{user.Id}'.");
-            //    }
-            //}
-
-            //var UserCity = user.UserCity;
-            //if (model.UserCity != UserCity)
-            //{
-            //    var setUserCityResult = await _userManager.SetPhoneNumberAsync(user, model.UserAddress);
-            //    if (!setUserAddressResult.Succeeded)
-            //    {
-            //        throw new ApplicationException($"Unexpected error occurred setting user address for user with ID '{user.Id}'.");
-            //    }
-            //}
-
-            //var UserState = user.UserState;
-            //if (model.UserAddress != UserAddress)
-            //{
-            //    var setUserAddressResult = await _userManager.SetPhoneNumberAsync(user, model.UserAddress);
-            //    if (!setUserAddressResult.Succeeded)
-            //    {
-            //        throw new ApplicationException($"Unexpected error occurred setting user address for user with ID '{user.Id}'.");
-            //    }
-            //}
-
-            //var UserZip = user.UserZip;
-            //if (model.UserAddress != UserAddress)
-            //{
-            //    var setUserAddressResult = await _userManager.SetPhoneNumberAsync(user, model.UserAddress);
-            //    if (!setUserAddressResult.Succeeded)
-            //    {
-            //        throw new ApplicationException($"Unexpected error occurred setting user address for user with ID '{user.Id}'.");
-            //    }
-            //}
 
             StatusMessage = "Your profile has been updated";
             return RedirectToAction(nameof(Index));
