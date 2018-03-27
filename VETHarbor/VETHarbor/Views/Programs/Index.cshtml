@@ -1,0 +1,77 @@
+﻿@model IEnumerable<VETHarbor.Models.Programs>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProgramType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProgramTitle)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProgramCity)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProgramState)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProgramDescription)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.WebsiteUrl)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProgramPhotoUrl)
+                </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Organization)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProgramType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProgramTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProgramCity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProgramState)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProgramDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WebsiteUrl)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProgramPhotoUrl)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Organization.OrgId)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ProgramId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ProgramId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ProgramId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
