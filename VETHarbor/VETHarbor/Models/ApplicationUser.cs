@@ -8,12 +8,11 @@ using Microsoft.AspNetCore.Identity;
 namespace VETHarbor.Models
 {
     // Add profile data for application users by adding properties to the ApplicationUser class
-    public class ApplicationUser : IdentityUser
+    public class ApplicationUser : IdentityUser <Guid>
     {
-        public string UserAddress { get; set; }
-        public string UserCity { get; set; }
-        public string UserState { get; set; }
-        public string UserZip { get; set; }
+        //UserId, UserName, Email, & RoleId are inherited from identity user
+        public int? OrgId { get; set; }
+
 
 
         public virtual ICollection<IdentityUserRole<string>> Roles { get; private set; }
