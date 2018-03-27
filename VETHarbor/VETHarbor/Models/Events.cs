@@ -11,8 +11,8 @@ namespace VETHarbor.Models
         [Key]
         public int EventId { get; set; }
 
-        public int OrgUserId { get; set; }
-        public Organizational_User Organizational_User { get; set; }
+        public int OrgId { get; set; }
+        public Organization Organization { get; set; }
 
         public string EventTitle { get; set; }
 
@@ -21,6 +21,8 @@ namespace VETHarbor.Models
         public DateTime EventStart { get; set; }
 
         public DateTime EventEnd { get; set; }
+
+        public string EventPhotoUrl { get; set; }
 
     }
 }

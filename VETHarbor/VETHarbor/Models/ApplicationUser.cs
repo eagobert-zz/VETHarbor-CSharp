@@ -16,6 +16,7 @@ namespace VETHarbor.Models
 
 
         public virtual ICollection<IdentityUserRole<string>> Roles { get; private set; }
+        public virtual ICollection<UserEvents> UserEvents { get; set; }
 
     }
 }
