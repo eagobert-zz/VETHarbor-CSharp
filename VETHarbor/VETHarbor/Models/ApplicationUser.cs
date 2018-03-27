@@ -12,11 +12,12 @@ namespace VETHarbor.Models
     {
         //UserId, UserName, Email, & RoleId are inherited from identity user
         public int? OrgId { get; set; }
+        public int? UserEventId { get; set; }
 
 
 
-        public virtual ICollection<IdentityUserRole<string>> Roles { get; private set; }
-        public virtual ICollection<UserEvents> UserEvents { get; set; }
+        public virtual ICollection<IdentityUserRole<Guid>> Roles { get; private set; }
+       // public virtual ICollection<UserEvents> UserEvents { get; set; }
 
     }
 }
