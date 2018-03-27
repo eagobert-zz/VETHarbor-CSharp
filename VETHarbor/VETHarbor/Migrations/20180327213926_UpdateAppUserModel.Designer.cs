@@ -11,9 +11,10 @@ using VETHarbor.Data;
 namespace VETHarbor.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180327213926_UpdateAppUserModel")]
+    partial class UpdateAppUserModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -177,6 +178,10 @@ namespace VETHarbor.Migrations
                         .HasName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
+                    b.HasIndex("UserEventId")
+                        .IsUnique()
+                        .HasFilter("[UserEventId] IS NOT NULL");
+
                     b.ToTable("AspNetUsers");
                 });
 
@@ -253,15 +258,11 @@ namespace VETHarbor.Migrations
                     b.Property<int>("UserEventId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid?>("ApplicationUserId");
-
                     b.Property<int>("EventId");
 
                     b.Property<int>("Id");
 
                     b.HasKey("UserEventId");
-
-                    b.HasIndex("ApplicationUserId");
 
                     b.HasIndex("EventId");
 
@@ -313,6 +314,13 @@ namespace VETHarbor.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("VETHarbor.Models.ApplicationUser", b =>
+                {
+                    b.HasOne("VETHarbor.Models.UserEvents")
+                        .WithOne("ApplicationUser")
+                        .HasForeignKey("VETHarbor.Models.ApplicationUser", "UserEventId");
+                });
+
             modelBuilder.Entity("VETHarbor.Models.Events", b =>
                 {
                     b.HasOne("VETHarbor.Models.Organization", "Organization")
@@ -331,10 +339,6 @@ namespace VETHarbor.Migrations
 
             modelBuilder.Entity("VETHarbor.Models.UserEvents", b =>
                 {
-                    b.HasOne("VETHarbor.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany("UserEvents")
-                        .HasForeignKey("ApplicationUserId");
-
                     b.HasOne("VETHarbor.Models.Events", "Events")
                         .WithMany()
                         .HasForeignKey("EventId")

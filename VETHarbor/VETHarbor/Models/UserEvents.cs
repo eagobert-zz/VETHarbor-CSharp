@@ -18,7 +18,7 @@ namespace VETHarbor.Models
         public Events Events { get; set; }
 
         //Represents a collection of user saved events
-        public virtual ICollection<Events> Event { get; set; }
-        public virtual ICollection<ApplicationUser> ApplicationUsers { get; set; }
+        //public virtual ICollection<Events> Event { get; set; }
+        //public virtual ICollection<ApplicationUser> ApplicationUsers { get; set; }
     }
 }
