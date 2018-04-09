@@ -26,7 +26,7 @@ namespace VETHarbor.Controllers
         }
 
         // GET: Organizations/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(string id)
         {
             if (id == null)
             {
@@ -54,7 +54,7 @@ namespace VETHarbor.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("OrgId,OrganizationName,OrganizationCity,OrganizationState")] Organization organization)
+        public async Task<IActionResult> Create([Bind("OrgId,OrgName,OrgCity,OrgState")] Organization organization)
         {
             if (ModelState.IsValid)
             {
@@ -66,7 +66,7 @@ namespace VETHarbor.Controllers
         }
 
         // GET: Organizations/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
             {
@@ -86,7 +86,7 @@ namespace VETHarbor.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("OrgId,OrganizationName,OrganizationCity,OrganizationState")] Organization organization)
+        public async Task<IActionResult> Edit(string id, [Bind("OrgId,OrgName,OrgCity,OrgState")] Organization organization)
         {
             if (id != organization.OrgId)
             {
@@ -117,7 +117,7 @@ namespace VETHarbor.Controllers
         }
 
         // GET: Organizations/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
             {
@@ -137,7 +137,7 @@ namespace VETHarbor.Controllers
         // POST: Organizations/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var organization = await _context.Organizations.SingleOrDefaultAsync(m => m.OrgId == id);
             _context.Organizations.Remove(organization);
@@ -145,7 +145,7 @@ namespace VETHarbor.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool OrganizationExists(int id)
+        private bool OrganizationExists(string id)
         {
             return _context.Organizations.Any(e => e.OrgId == id);
         }

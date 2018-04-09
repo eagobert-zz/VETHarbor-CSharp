@@ -25,40 +25,7 @@ namespace VETHarbor.Models.ManageViewModels
 
         public string StatusMessage { get; set; }
 
-        //User Role View Starts Here:
-
-        [DataType(DataType.MultilineText)]
-        [Display(Name = "Street Address")]
-        public string UserAddress { get; set; }
-
-        [DataType(DataType.Text)]
-        [Display(Name = "City")]
-        public string UserCity { get; set; }
-
-        [DataType(DataType.Text)]
-        [Display(Name = "State")]
-        public string UserState { get; set; }
-
-        [DataType(DataType.PostalCode)]
-        [Display(Name = "Zip Code")]
-        public string UserZip { get; set; }
-
-        //Administrator Role View Starts Here:
-
-        [DataType(DataType.Text)]
-        [Display(Name = "Organization Name")]
-        public string OrganizationName { get; set; }
-
-        [DataType(DataType.Text)]
-        [Display(Name = "City")]
-        public string OrganizationCity { get; set; }
-
-        [DataType(DataType.Text)]
-        [Display(Name = "State")]
-        public string OrganizationState { get; set; }
-
-       // [DataType(DataType.PostalCode)]
-       // [Display(Name = "Zip Code")]
-       // public string OrganizationZip { get; set; }
+        public string OrgName { get; set; }
+        public Organization Organization { get; set; }
     }
 }
