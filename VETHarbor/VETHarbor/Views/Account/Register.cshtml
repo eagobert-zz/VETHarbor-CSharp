@@ -19,13 +19,30 @@
                 </div>
             </div>
 
-            <div class="form-group">
-                @Html.LabelFor(m => m.Organization, new { @class = "col-md-2 control-label" })
-                <div class="col-md-10">
-                    @Html.TextBoxFor(m => m.Organization, new { @class = "form-control" })
-               </div>
-
+        <div class="form-group">
+            @Html.LabelFor(m => m.OrgName, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.OrgName, new { @class = "form-control" })
             </div>
+
+
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.OrgCity, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.OrgCity, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.OrgState, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.OrgState, new { @class = "form-control" })
+            </div>
+        </div>
+
+
             <div class="form-group">
                 <label asp-for="UserName"></label>
                 <input asp-for="UserName" class="form-control" />
