@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using VETHarbor.Data;
@@ -234,6 +235,7 @@ namespace VETHarbor.Controllers
 
 
             ViewData["ReturnUrl"] = returnUrl;
+
             if (ModelState.IsValid)
             {
                 Organization organization = new Organization
@@ -253,6 +255,7 @@ namespace VETHarbor.Controllers
                 };
 
                 IdentityResult result = _userManager.CreateAsync(user: user, password: model.Password).Result;
+
 
                 if (result.Succeeded)
                 {
