@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace VETHarbor.Models
 {
-    public class ApplicationRole: IdentityRole
+    public class ApplicationRole: IdentityRole<Guid>
     {
         public ApplicationRole()
         {

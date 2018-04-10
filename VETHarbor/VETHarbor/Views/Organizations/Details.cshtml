@@ -11,32 +11,26 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.OrganizationName)
+            @Html.DisplayNameFor(model => model.OrgName)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.OrganizationName)
+            @Html.DisplayFor(model => model.OrgName)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.OrganizationAddress)
+            @Html.DisplayNameFor(model => model.OrgCity)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.OrganizationAddress)
+            @Html.DisplayFor(model => model.OrgCity)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.OrganizationCity)
+            @Html.DisplayNameFor(model => model.OrgState)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.OrganizationCity)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.OrganizationState)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.OrganizationState)
+            @Html.DisplayFor(model => model.OrgState)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.OrganizationId">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model.OrgId">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>

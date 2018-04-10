@@ -16,26 +16,20 @@ namespace VETHarbor.Models.AccountViewModels
         [Display(Name = "UserName")]
         public string UserName { get; set; }
 
-        [DataType(DataType.MultilineText)]
-        [Display(Name = "Street Address")]
-        public string UserAddress { get; set; }
-
-        [DataType(DataType.Text)]
-        [Display(Name = "City")]
-        public string UserCity { get; set; }
-
-        [DataType(DataType.Text)]
-        [Display(Name = "State")]
-        public string UserState { get; set; }
-
-        [DataType(DataType.PostalCode)]
-        [Display(Name = "Zip Code")]
-        public string UserZip { get; set; }
-
-
+        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
+
+
+        [Display(Name = "Organization Name")]
+        public string OrgName { get; set; }
+
+        [Display(Name = "Organization City")]
+        public string OrgCity { get; set; }
+
+        [Display(Name = "Organization State")]
+        public string OrgState { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
@@ -43,9 +37,9 @@ namespace VETHarbor.Models.AccountViewModels
         [Display(Name = "Password")]
         public string Password { get; set; }
 
-        //[DataType(DataType.Password)]
-        //[Display(Name = "Confirm password")]
-        //[Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
-        //public string ConfirmPassword { get; set; }
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirm password")]
+        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        public string ConfirmPassword { get; set; }
     }
 }

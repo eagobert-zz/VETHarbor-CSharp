@@ -22,7 +22,7 @@ namespace VETHarbor.Controllers
         // GET: Events
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Events.Include(e => e.Organizational_User);
+            var applicationDbContext = _context.Events.Include(e => e.Organization);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -35,7 +35,7 @@ namespace VETHarbor.Controllers
             }
 
             var events = await _context.Events
-                .Include(e => e.Organizational_User)
+                .Include(e => e.Organization)
                 .SingleOrDefaultAsync(m => m.EventId == id);
             if (events == null)
             {
@@ -48,7 +48,7 @@ namespace VETHarbor.Controllers
         // GET: Events/Create
         public IActionResult Create()
         {
-            ViewData["OrgUserId"] = new SelectList(_context.Organizational_User, "OrgUserId", "OrgUserId");
+            ViewData["OrgId"] = new SelectList(_context.Organizations, "OrgId", "OrgId");
             return View();
         }
 
@@ -57,7 +57,7 @@ namespace VETHarbor.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("EventId,OrgUserId,EventTitle,EventDescription,EventStart,EventEnd")] Events events)
+        public async Task<IActionResult> Create([Bind("EventId,OrgId,EventTitle,EventDescription,EventStart,EventEnd,EventPhotoUrl")] Events events)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +65,7 @@ namespace VETHarbor.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["OrgUserId"] = new SelectList(_context.Organizational_User, "OrgUserId", "OrgUserId", events.OrgUserId);
+            ViewData["OrgId"] = new SelectList(_context.Organizations, "OrgId", "OrgId", events.OrgId);
             return View(events);
         }
 
@@ -82,7 +82,7 @@ namespace VETHarbor.Controllers
             {
                 return NotFound();
             }
-            ViewData["OrgUserId"] = new SelectList(_context.Organizational_User, "OrgUserId", "OrgUserId", events.OrgUserId);
+            ViewData["OrgId"] = new SelectList(_context.Organizations, "OrgId", "OrgId", events.OrgId);
             return View(events);
         }
 
@@ -91,7 +91,7 @@ namespace VETHarbor.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("EventId,OrgUserId,EventTitle,EventDescription,EventStart,EventEnd")] Events events)
+        public async Task<IActionResult> Edit(int id, [Bind("EventId,OrgId,EventTitle,EventDescription,EventStart,EventEnd,EventPhotoUrl")] Events events)
         {
             if (id != events.EventId)
             {
@@ -118,7 +118,7 @@ namespace VETHarbor.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["OrgUserId"] = new SelectList(_context.Organizational_User, "OrgUserId", "OrgUserId", events.OrgUserId);
+            ViewData["OrgId"] = new SelectList(_context.Organizations, "OrgId", "OrgId", events.OrgId);
             return View(events);
         }
 
@@ -131,7 +131,7 @@ namespace VETHarbor.Controllers
             }
 
             var events = await _context.Events
-                .Include(e => e.Organizational_User)
+                .Include(e => e.Organization)
                 .SingleOrDefaultAsync(m => m.EventId == id);
             if (events == null)
             {

@@ -13,8 +13,13 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="OrgUserId" class="control-label"></label>
-                <select asp-for="OrgUserId" class ="form-control" asp-items="ViewBag.OrgUserId"></select>
+                <label asp-for="OrgId" class="control-label"></label>
+                <select asp-for="OrgId" class ="form-control" asp-items="ViewBag.OrgId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProgramType" class="control-label"></label>
+                <input asp-for="ProgramType" class="form-control" />
+                <span asp-validation-for="ProgramType" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ProgramTitle" class="control-label"></label>
@@ -42,9 +47,9 @@
                 <span asp-validation-for="WebsiteUrl" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Phone" class="control-label"></label>
-                <input asp-for="Phone" class="form-control" />
-                <span asp-validation-for="Phone" class="text-danger"></span>
+                <label asp-for="ProgramPhotoUrl" class="control-label"></label>
+                <input asp-for="ProgramPhotoUrl" class="form-control" />
+                <span asp-validation-for="ProgramPhotoUrl" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />

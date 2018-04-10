@@ -13,24 +13,19 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="OrganizationName" class="control-label"></label>
-                <input asp-for="OrganizationName" class="form-control" />
-                <span asp-validation-for="OrganizationName" class="text-danger"></span>
+                <label asp-for="OrgName" class="control-label"></label>
+                <input asp-for="OrgName" class="form-control" />
+                <span asp-validation-for="OrgName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="OrganizationAddress" class="control-label"></label>
-                <input asp-for="OrganizationAddress" class="form-control" />
-                <span asp-validation-for="OrganizationAddress" class="text-danger"></span>
+                <label asp-for="OrgCity" class="control-label"></label>
+                <input asp-for="OrgCity" class="form-control" />
+                <span asp-validation-for="OrgCity" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="OrganizationCity" class="control-label"></label>
-                <input asp-for="OrganizationCity" class="form-control" />
-                <span asp-validation-for="OrganizationCity" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="OrganizationState" class="control-label"></label>
-                <input asp-for="OrganizationState" class="form-control" />
-                <span asp-validation-for="OrganizationState" class="text-danger"></span>
+                <label asp-for="OrgState" class="control-label"></label>
+                <input asp-for="OrgState" class="form-control" />
+                <span asp-validation-for="OrgState" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />

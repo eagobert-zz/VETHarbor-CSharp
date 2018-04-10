@@ -35,10 +35,16 @@
             @Html.DisplayFor(model => model.EventEnd)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Organizational_User)
+            @Html.DisplayNameFor(model => model.EventPhotoUrl)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Organizational_User.OrgUserId)
+            @Html.DisplayFor(model => model.EventPhotoUrl)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Organization)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Organization.OrgId)
         </dd>
     </dl>
 </div>

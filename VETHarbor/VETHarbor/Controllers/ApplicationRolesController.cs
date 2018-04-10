@@ -10,85 +10,86 @@ using VETHarbor.Models;
 
 namespace VETHarbor.Controllers
 {
-    public class OrganizationsController : Controller
+    public class ApplicationRolesController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public OrganizationsController(ApplicationDbContext context)
+        public ApplicationRolesController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Organizations
+        // GET: ApplicationRoles
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Organizations.ToListAsync());
+            return View(await _context.ApplicationRoles.ToListAsync());
         }
 
-        // GET: Organizations/Details/5
-        public async Task<IActionResult> Details(string id)
+        // GET: ApplicationRoles/Details/5
+        public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var organization = await _context.Organizations
-                .SingleOrDefaultAsync(m => m.OrgId == id);
-            if (organization == null)
+            var applicationRole = await _context.ApplicationRoles
+                .SingleOrDefaultAsync(m => m.Id == id);
+            if (applicationRole == null)
             {
                 return NotFound();
             }
 
-            return View(organization);
+            return View(applicationRole);
         }
 
-        // GET: Organizations/Create
+        // GET: ApplicationRoles/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Organizations/Create
+        // POST: ApplicationRoles/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("OrgId,OrgName,OrgCity,OrgState")] Organization organization)
+        public async Task<IActionResult> Create([Bind("Id,Name,NormalizedName,ConcurrencyStamp")] ApplicationRole applicationRole)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(organization);
+                applicationRole.Id = Guid.NewGuid();
+                _context.Add(applicationRole);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(organization);
+            return View(applicationRole);
         }
 
-        // GET: Organizations/Edit/5
-        public async Task<IActionResult> Edit(string id)
+        // GET: ApplicationRoles/Edit/5
+        public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var organization = await _context.Organizations.SingleOrDefaultAsync(m => m.OrgId == id);
-            if (organization == null)
+            var applicationRole = await _context.ApplicationRoles.SingleOrDefaultAsync(m => m.Id == id);
+            if (applicationRole == null)
             {
                 return NotFound();
             }
-            return View(organization);
+            return View(applicationRole);
         }
 
-        // POST: Organizations/Edit/5
+        // POST: ApplicationRoles/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("OrgId,OrgName,OrgCity,OrgState")] Organization organization)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Name,NormalizedName,ConcurrencyStamp")] ApplicationRole applicationRole)
         {
-            if (id != organization.OrgId)
+            if (id != applicationRole.Id)
             {
                 return NotFound();
             }
@@ -97,12 +98,12 @@ namespace VETHarbor.Controllers
             {
                 try
                 {
-                    _context.Update(organization);
+                    _context.Update(applicationRole);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!OrganizationExists(organization.OrgId))
+                    if (!ApplicationRoleExists(applicationRole.Id))
                     {
                         return NotFound();
                     }
@@ -113,41 +114,41 @@ namespace VETHarbor.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(organization);
+            return View(applicationRole);
         }
 
-        // GET: Organizations/Delete/5
-        public async Task<IActionResult> Delete(string id)
+        // GET: ApplicationRoles/Delete/5
+        public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var organization = await _context.Organizations
-                .SingleOrDefaultAsync(m => m.OrgId == id);
-            if (organization == null)
+            var applicationRole = await _context.ApplicationRoles
+                .SingleOrDefaultAsync(m => m.Id == id);
+            if (applicationRole == null)
             {
                 return NotFound();
             }
 
-            return View(organization);
+            return View(applicationRole);
         }
 
-        // POST: Organizations/Delete/5
+        // POST: ApplicationRoles/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
+        public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var organization = await _context.Organizations.SingleOrDefaultAsync(m => m.OrgId == id);
-            _context.Organizations.Remove(organization);
+            var applicationRole = await _context.ApplicationRoles.SingleOrDefaultAsync(m => m.Id == id);
+            _context.ApplicationRoles.Remove(applicationRole);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool OrganizationExists(string id)
+        private bool ApplicationRoleExists(Guid id)
         {
-            return _context.Organizations.Any(e => e.OrgId == id);
+            return _context.ApplicationRoles.Any(e => e.Id == id);
         }
     }
 }

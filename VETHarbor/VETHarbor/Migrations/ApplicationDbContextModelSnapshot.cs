@@ -20,7 +20,7 @@ namespace VETHarbor.Migrations
                 .HasAnnotation("ProductVersion", "2.0.2-rtm-10011")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -29,8 +29,7 @@ namespace VETHarbor.Migrations
 
                     b.Property<string>("ClaimValue");
 
-                    b.Property<string>("RoleId")
-                        .IsRequired();
+                    b.Property<Guid>("RoleId");
 
                     b.HasKey("Id");
 
@@ -39,7 +38,7 @@ namespace VETHarbor.Migrations
                     b.ToTable("AspNetRoleClaims");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -48,8 +47,7 @@ namespace VETHarbor.Migrations
 
                     b.Property<string>("ClaimValue");
 
-                    b.Property<string>("UserId")
-                        .IsRequired();
+                    b.Property<Guid>("UserId");
 
                     b.HasKey("Id");
 
@@ -58,7 +56,7 @@ namespace VETHarbor.Migrations
                     b.ToTable("AspNetUserClaims");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
                 {
                     b.Property<string>("LoginProvider");
 
@@ -66,8 +64,7 @@ namespace VETHarbor.Migrations
 
                     b.Property<string>("ProviderDisplayName");
 
-                    b.Property<string>("UserId")
-                        .IsRequired();
+                    b.Property<Guid>("UserId");
 
                     b.HasKey("LoginProvider", "ProviderKey");
 
@@ -76,11 +73,11 @@ namespace VETHarbor.Migrations
                     b.ToTable("AspNetUserLogins");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
                 {
-                    b.Property<string>("UserId");
+                    b.Property<Guid>("UserId");
 
-                    b.Property<string>("RoleId");
+                    b.Property<Guid>("RoleId");
 
                     b.HasKey("UserId", "RoleId");
 
@@ -89,9 +86,9 @@ namespace VETHarbor.Migrations
                     b.ToTable("AspNetUserRoles");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
                 {
-                    b.Property<string>("UserId");
+                    b.Property<Guid>("UserId");
 
                     b.Property<string>("LoginProvider");
 
@@ -106,7 +103,7 @@ namespace VETHarbor.Migrations
 
             modelBuilder.Entity("VETHarbor.Models.ApplicationRole", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("ConcurrencyStamp")
@@ -130,7 +127,7 @@ namespace VETHarbor.Migrations
 
             modelBuilder.Entity("VETHarbor.Models.ApplicationUser", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("AccessFailedCount");
@@ -153,6 +150,8 @@ namespace VETHarbor.Migrations
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256);
 
+                    b.Property<string>("OrgId");
+
                     b.Property<string>("PasswordHash");
 
                     b.Property<string>("PhoneNumber");
@@ -163,16 +162,8 @@ namespace VETHarbor.Migrations
 
                     b.Property<bool>("TwoFactorEnabled");
 
-                    b.Property<string>("UserAddress");
-
-                    b.Property<string>("UserCity");
-
                     b.Property<string>("UserName")
                         .HasMaxLength(256);
-
-                    b.Property<string>("UserState");
-
-                    b.Property<string>("UserZip");
 
                     b.HasKey("Id");
 
@@ -183,6 +174,8 @@ namespace VETHarbor.Migrations
                         .IsUnique()
                         .HasName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.HasIndex("OrgId");
 
                     b.ToTable("AspNetUsers");
                 });
@@ -196,59 +189,37 @@ namespace VETHarbor.Migrations
 
                     b.Property<DateTime>("EventEnd");
 
+                    b.Property<string>("EventPhotoUrl");
+
                     b.Property<DateTime>("EventStart");
 
                     b.Property<string>("EventTitle");
 
-                    b.Property<int>("OrgUserId");
+                    b.Property<int>("OrgId");
 
-                    b.Property<int?>("User_EventsUserEventId");
+                    b.Property<string>("OrganizationOrgId");
 
                     b.HasKey("EventId");
 
-                    b.HasIndex("OrgUserId");
-
-                    b.HasIndex("User_EventsUserEventId");
+                    b.HasIndex("OrganizationOrgId");
 
                     b.ToTable("Events");
                 });
 
             modelBuilder.Entity("VETHarbor.Models.Organization", b =>
                 {
-                    b.Property<int>("OrganizationId")
+                    b.Property<string>("OrgId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("OrganizationAddress");
+                    b.Property<string>("OrgCity");
 
-                    b.Property<string>("OrganizationCity");
+                    b.Property<string>("OrgName");
 
-                    b.Property<string>("OrganizationName");
+                    b.Property<string>("OrgState");
 
-                    b.Property<string>("OrganizationState");
-
-                    b.HasKey("OrganizationId");
+                    b.HasKey("OrgId");
 
                     b.ToTable("Organizations");
-                });
-
-            modelBuilder.Entity("VETHarbor.Models.Organizational_User", b =>
-                {
-                    b.Property<int>("OrgUserId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("ApplicationUserId");
-
-                    b.Property<int>("OrganizationId");
-
-                    b.Property<int>("UserId");
-
-                    b.HasKey("OrgUserId");
-
-                    b.HasIndex("ApplicationUserId");
-
-                    b.HasIndex("OrganizationId");
-
-                    b.ToTable("Organizational_User");
                 });
 
             modelBuilder.Entity("VETHarbor.Models.Programs", b =>
@@ -256,72 +227,32 @@ namespace VETHarbor.Migrations
                     b.Property<int>("ProgramId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("OrgUserId");
+                    b.Property<int>("OrgId");
 
-                    b.Property<string>("Phone");
+                    b.Property<string>("OrganizationOrgId");
 
                     b.Property<string>("ProgramCity");
 
                     b.Property<string>("ProgramDescription");
 
+                    b.Property<string>("ProgramPhotoUrl");
+
                     b.Property<string>("ProgramState");
 
                     b.Property<string>("ProgramTitle");
 
-                    b.Property<int?>("User_ProgramsUserProgId");
+                    b.Property<string>("ProgramType");
 
                     b.Property<string>("WebsiteUrl");
 
                     b.HasKey("ProgramId");
 
-                    b.HasIndex("OrgUserId");
-
-                    b.HasIndex("User_ProgramsUserProgId");
+                    b.HasIndex("OrganizationOrgId");
 
                     b.ToTable("Programs");
                 });
 
-            modelBuilder.Entity("VETHarbor.Models.User_Events", b =>
-                {
-                    b.Property<int>("UserEventId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("ApplicationUserId");
-
-                    b.Property<int>("EventId");
-
-                    b.Property<int>("UserId");
-
-                    b.HasKey("UserEventId");
-
-                    b.HasIndex("ApplicationUserId");
-
-                    b.HasIndex("EventId");
-
-                    b.ToTable("User_Events");
-                });
-
-            modelBuilder.Entity("VETHarbor.Models.User_Programs", b =>
-                {
-                    b.Property<int>("UserProgId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("ApplicationUserId");
-
-                    b.Property<int>("ProgramId");
-
-                    b.Property<int>("UserId");
-
-                    b.HasKey("UserProgId");
-
-                    b.HasIndex("ApplicationUserId");
-
-                    b.HasIndex("ProgramId");
-
-                    b.ToTable("User_Programs");
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
                     b.HasOne("VETHarbor.Models.ApplicationRole")
                         .WithMany()
@@ -329,7 +260,7 @@ namespace VETHarbor.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
                 {
                     b.HasOne("VETHarbor.Models.ApplicationUser")
                         .WithMany()
@@ -337,7 +268,7 @@ namespace VETHarbor.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
                 {
                     b.HasOne("VETHarbor.Models.ApplicationUser")
                         .WithMany()
@@ -345,7 +276,7 @@ namespace VETHarbor.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
                 {
                     b.HasOne("VETHarbor.Models.ApplicationRole")
                         .WithMany()
@@ -358,7 +289,7 @@ namespace VETHarbor.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
                 {
                     b.HasOne("VETHarbor.Models.ApplicationUser")
                         .WithMany()
@@ -366,64 +297,25 @@ namespace VETHarbor.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("VETHarbor.Models.Events", b =>
+            modelBuilder.Entity("VETHarbor.Models.ApplicationUser", b =>
                 {
-                    b.HasOne("VETHarbor.Models.Organizational_User", "Organizational_User")
-                        .WithMany()
-                        .HasForeignKey("OrgUserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("VETHarbor.Models.User_Events")
-                        .WithMany("Event")
-                        .HasForeignKey("User_EventsUserEventId");
+                    b.HasOne("VETHarbor.Models.Organization", "Organization")
+                        .WithMany("ApplicationUsers")
+                        .HasForeignKey("OrgId");
                 });
 
-            modelBuilder.Entity("VETHarbor.Models.Organizational_User", b =>
+            modelBuilder.Entity("VETHarbor.Models.Events", b =>
                 {
-                    b.HasOne("VETHarbor.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("ApplicationUserId");
-
                     b.HasOne("VETHarbor.Models.Organization", "Organization")
-                        .WithMany()
-                        .HasForeignKey("OrganizationId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .WithMany("Events")
+                        .HasForeignKey("OrganizationOrgId");
                 });
 
             modelBuilder.Entity("VETHarbor.Models.Programs", b =>
                 {
-                    b.HasOne("VETHarbor.Models.Organizational_User", "Organizational_User")
-                        .WithMany()
-                        .HasForeignKey("OrgUserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("VETHarbor.Models.User_Programs")
-                        .WithMany("Program")
-                        .HasForeignKey("User_ProgramsUserProgId");
-                });
-
-            modelBuilder.Entity("VETHarbor.Models.User_Events", b =>
-                {
-                    b.HasOne("VETHarbor.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("ApplicationUserId");
-
-                    b.HasOne("VETHarbor.Models.Events", "Events")
-                        .WithMany()
-                        .HasForeignKey("EventId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("VETHarbor.Models.User_Programs", b =>
-                {
-                    b.HasOne("VETHarbor.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("ApplicationUserId");
-
-                    b.HasOne("VETHarbor.Models.Programs", "Programs")
-                        .WithMany()
-                        .HasForeignKey("ProgramId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                    b.HasOne("VETHarbor.Models.Organization", "Organization")
+                        .WithMany("Programs")
+                        .HasForeignKey("OrganizationOrgId");
                 });
 #pragma warning restore 612, 618
         }

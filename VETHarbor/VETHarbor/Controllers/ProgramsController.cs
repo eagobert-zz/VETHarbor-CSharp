@@ -22,7 +22,7 @@ namespace VETHarbor.Controllers
         // GET: Programs
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Programs.Include(p => p.Organizational_User);
+            var applicationDbContext = _context.Programs.Include(p => p.Organization);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -35,7 +35,7 @@ namespace VETHarbor.Controllers
             }
 
             var programs = await _context.Programs
-                .Include(p => p.Organizational_User)
+                .Include(p => p.Organization)
                 .SingleOrDefaultAsync(m => m.ProgramId == id);
             if (programs == null)
             {
@@ -48,7 +48,7 @@ namespace VETHarbor.Controllers
         // GET: Programs/Create
         public IActionResult Create()
         {
-            ViewData["OrgUserId"] = new SelectList(_context.Organizational_User, "OrgUserId", "OrgUserId");
+            ViewData["OrgId"] = new SelectList(_context.Organizations, "OrgId", "OrgId");
             return View();
         }
 
@@ -57,7 +57,7 @@ namespace VETHarbor.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProgramId,OrgUserId,ProgramTitle,ProgramCity,ProgramState,ProgramDescription,WebsiteUrl,Phone")] Programs programs)
+        public async Task<IActionResult> Create([Bind("ProgramId,OrgId,ProgramType,ProgramTitle,ProgramCity,ProgramState,ProgramDescription,WebsiteUrl,ProgramPhotoUrl")] Programs programs)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +65,7 @@ namespace VETHarbor.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["OrgUserId"] = new SelectList(_context.Organizational_User, "OrgUserId", "OrgUserId", programs.OrgUserId);
+            ViewData["OrgId"] = new SelectList(_context.Organizations, "OrgId", "OrgId", programs.OrgId);
             return View(programs);
         }
 
@@ -82,7 +82,7 @@ namespace VETHarbor.Controllers
             {
                 return NotFound();
             }
-            ViewData["OrgUserId"] = new SelectList(_context.Organizational_User, "OrgUserId", "OrgUserId", programs.OrgUserId);
+            ViewData["OrgId"] = new SelectList(_context.Organizations, "OrgId", "OrgId", programs.OrgId);
             return View(programs);
         }
 
@@ -91,7 +91,7 @@ namespace VETHarbor.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ProgramId,OrgUserId,ProgramTitle,ProgramCity,ProgramState,ProgramDescription,WebsiteUrl,Phone")] Programs programs)
+        public async Task<IActionResult> Edit(int id, [Bind("ProgramId,OrgId,ProgramType,ProgramTitle,ProgramCity,ProgramState,ProgramDescription,WebsiteUrl,ProgramPhotoUrl")] Programs programs)
         {
             if (id != programs.ProgramId)
             {
@@ -118,7 +118,7 @@ namespace VETHarbor.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["OrgUserId"] = new SelectList(_context.Organizational_User, "OrgUserId", "OrgUserId", programs.OrgUserId);
+            ViewData["OrgId"] = new SelectList(_context.Organizations, "OrgId", "OrgId", programs.OrgId);
             return View(programs);
         }
 
@@ -131,7 +131,7 @@ namespace VETHarbor.Controllers
             }
 
             var programs = await _context.Programs
-                .Include(p => p.Organizational_User)
+                .Include(p => p.Organization)
                 .SingleOrDefaultAsync(m => m.ProgramId == id);
             if (programs == null)
             {

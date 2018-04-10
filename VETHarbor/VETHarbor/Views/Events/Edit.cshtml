@@ -14,9 +14,9 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="EventId" />
             <div class="form-group">
-                <label asp-for="OrgUserId" class="control-label"></label>
-                <select asp-for="OrgUserId" class="form-control" asp-items="ViewBag.OrgUserId"></select>
-                <span asp-validation-for="OrgUserId" class="text-danger"></span>
+                <label asp-for="OrgId" class="control-label"></label>
+                <select asp-for="OrgId" class="form-control" asp-items="ViewBag.OrgId"></select>
+                <span asp-validation-for="OrgId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="EventTitle" class="control-label"></label>
@@ -37,6 +37,11 @@
                 <label asp-for="EventEnd" class="control-label"></label>
                 <input asp-for="EventEnd" class="form-control" />
                 <span asp-validation-for="EventEnd" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EventPhotoUrl" class="control-label"></label>
+                <input asp-for="EventPhotoUrl" class="form-control" />
+                <span asp-validation-for="EventPhotoUrl" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />

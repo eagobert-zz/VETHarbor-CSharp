@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using VETHarbor.Data;
@@ -231,13 +232,30 @@ namespace VETHarbor.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
         {
-            var userstore = new UserStore<ApplicationUser>(_context);
+
 
             ViewData["ReturnUrl"] = returnUrl;
+
             if (ModelState.IsValid)
             {
-                ApplicationUser user = new ApplicationUser { UserName = model.UserName, UserAddress = model.UserAddress, UserCity = model.UserCity, UserState = model.UserState, UserZip = model.UserZip, Email = model.Email};
+                Organization organization = new Organization
+                {
+                    OrgName = model.OrgName,
+                    OrgCity = model.OrgCity,
+                    OrgState = model.OrgState,
+                    ApplicationUsers = new List<ApplicationUser>()
+                };
+
+                ApplicationUser user = new ApplicationUser
+                {
+                    UserName = model.UserName,
+                    Email = model.Email,
+                    Organization = organization,
+                    OrgId = organization.OrgId
+                };
+
                 IdentityResult result = _userManager.CreateAsync(user: user, password: model.Password).Result;
+
 
                 if (result.Succeeded)
                 {
@@ -262,6 +280,13 @@ namespace VETHarbor.Controllers
                     }
 
                     _userManager.AddToRoleAsync(user, CurrentRole).Wait();
+
+                    //Adds "organization" claim to new registered user
+                   await _userManager.AddClaimsAsync(user, new List<Claim>()
+                    {
+                         new Claim("Organization", organization.OrgId)
+                    });
+
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     _logger.LogInformation("User created a new account with password. Role Added");
                     return RedirectToLocal(returnUrl);
@@ -272,6 +297,8 @@ namespace VETHarbor.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]

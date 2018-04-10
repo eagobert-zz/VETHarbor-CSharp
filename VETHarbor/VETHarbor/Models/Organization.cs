@@ -8,11 +8,27 @@ namespace VETHarbor.Models
 {
     public class Organization
     {
+
+        public Organization()
+        {
+            OrgId = Guid.NewGuid().ToString();
+            ApplicationUsers = new List<ApplicationUser>();
+        }
+
+        public Organization(string name)
+            : this()
+        {
+            OrgName = name;
+        }
+
         [Key]
-        public int OrganizationId { get; set; }
-        public string OrganizationName { get; set; }
-        public string OrganizationAddress { get; set; }
-        public string OrganizationCity { get; set; }
-        public string OrganizationState { get; set; }
+        public string OrgId { get; set; }
+        public string OrgName { get; set; }
+        public string OrgCity { get; set; }
+        public string OrgState { get; set; }
+
+        public virtual ICollection<ApplicationUser> ApplicationUsers { get; set; }
+        public virtual ICollection<Events> Events { get; set; }
+        public virtual ICollection<Programs> Programs { get; set; }
     }
 }
