@@ -17,7 +17,7 @@ namespace VETHarbor.Models.AccountViewModels
         [EmailAddress]
         public string Email { get; set; }
 
-        public Organization Organization { get; set; }
+        //public Organization Organization { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
