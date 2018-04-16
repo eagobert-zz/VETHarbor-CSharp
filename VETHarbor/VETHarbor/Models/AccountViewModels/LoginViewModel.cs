@@ -9,15 +9,9 @@ namespace VETHarbor.Models.AccountViewModels
     public class LoginViewModel
     {
 
-        //[Required]
-        //[Display(Name = "UserName")]
-        //public string UserName { get; set; }
-
         [Required]
         [EmailAddress]
         public string Email { get; set; }
-
-        //public Organization Organization { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
