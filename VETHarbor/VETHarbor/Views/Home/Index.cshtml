@@ -1,32 +1,51 @@
-﻿@{
+﻿@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-
-<div class="page-header header-filter clear-filter purple-filter" data-parallax="true" style="background-image: url(/img/bg2.jpg); transform: translate3d(0px, 0px, 0px);">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 ml-auto mr-auto">
-                <div class="brand">
-                    <h1>VETHarbor</h1>
-                    <h3>Find your recreational art therapy bliss.</h3>
-                    <div class="input-group input-group-lg">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="inputGroup-sizing-lg">Large</span>
+@if (!SignInManager.IsSignedIn(User))
+{
+    <div class="page-header header-filter clear-filter purple-filter" data-parallax="true" style="background-image: url(/img/bg2.jpg); transform: translate3d(0px, 0px, 0px);">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 ml-auto mr-auto">
+                    <div class="brand">
+                        <h1>VETHarbor</h1>
+                        <h3>Find your recreational art therapy bliss.</h3>
+                        <div class="input-group input-group-lg">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-lg"></span>
+                            </div>
+                            <input type="button" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm">
                         </div>
-                        <input type="button" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm">
-                    </div>
 
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="main main-raised">
-    <div class="container">
-        <div class="row">
-        <h1>Events will populate here!</h1>
+    <div class="main main-raised">
+        <div class="container">
+            <div class="row">
+                <h1>Events will populate here!</h1>
+            </div>
         </div>
     </div>
-</div>
+
+}
+
+
+@if (SignInManager.IsSignedIn(User) & User.IsInRole("User"))
+{
+
+    @*@await Html.PartialAsync("_LoginPartial")*@
+}
+
+@if (SignInManager.IsSignedIn(User) & User.IsInRole("Administrator"))
+{
+
+    @*@await Html.PartialAsync("_LoginPartial")*@
+}

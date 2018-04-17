@@ -19,7 +19,7 @@
     <div class="index-page">
         <nav class="navbar navbar-color-on-scroll fixed-top navbar-expand-lg navbar-transparent" color-on-scroll="100" id="sectionsNav">
             <div class="container">
-                <div class="navbar-translate">
+                <div class="navbar-translate d-flex flex-row-reverse ">
                     <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">VETHarbor</a>
                     <button type="button" class="navbar-toggler" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -28,7 +28,7 @@
                     </button>
                 </div>
 
-                <div class="collapse navbar-collapse">
+                <div class="collapse navbar-collapse d-flex flex-row-reverse ">
 
                     @if (!SignInManager.IsSignedIn(User))
                     {
@@ -44,10 +44,9 @@
 
                     }
 
-
                     @if (SignInManager.IsSignedIn(User))
                     {
- 
+
                         @await Html.PartialAsync("_LoginPartial")
                     }
                 </div>
