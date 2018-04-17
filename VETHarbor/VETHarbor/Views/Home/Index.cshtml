@@ -30,7 +30,7 @@
     <div class="main main-raised">
         <div class="container">
             <div class="row">
-                <h1>Events will populate here!</h1>
+                <h1>Searched events will populate here!</h1>
             </div>
         </div>
     </div>
@@ -41,11 +41,11 @@
 @if (SignInManager.IsSignedIn(User) & User.IsInRole("User"))
 {
 
-    @*@await Html.PartialAsync("_LoginPartial")*@
+    @*@await Html.PartialAsync("_UserView")*@
 }
 
 @if (SignInManager.IsSignedIn(User) & User.IsInRole("Administrator"))
 {
 
-    @*@await Html.PartialAsync("_LoginPartial")*@
+    @await Html.PartialAsync("_AdminView")
 }
