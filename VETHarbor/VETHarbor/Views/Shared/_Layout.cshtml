@@ -33,11 +33,11 @@
                     @if (!SignInManager.IsSignedIn(User))
                     {
 
-                        <ul class="navbar-nav ml-auto">
+                        @*<ul class="navbar-nav ml-auto">
                             <li class="active dropdown nav-item"><a class="nav-link" asp-controller="Home" asp-action="Index">Home</a></li>
                             <li class="dropdown nav-item"><a class="nav-link" asp-controller="Home" asp-action="About">About</a></li>
                             <li class="dropdown nav-item"><a class="nav-link" asp-controller="Home" asp-action="Contact">Contact</a></li>
-                        </ul>
+                        </ul>*@
                         @await Html.PartialAsync("_LoginPartial")
 
 
@@ -47,18 +47,13 @@
 
                     @if (SignInManager.IsSignedIn(User))
                     {
-                        @*<ul class="navbar-nav ml-auto">
-                            <li class=""><a class="dropdown nav-item nav-link" asp-area="" asp-controller="Manage" asp-action="Index" title="Manage">Hello @UserManager.GetUserName(User)!</a></li>
-                            <li class="active dropdown nav-item"><a class="nav-link" asp-controller="Home" asp-action="Index">Home</a></li>
-                            <li class="dropdown nav-item"><a class="nav-link" asp-controller="Home" asp-action="About">About</a></li>
-                            <li class="dropdown nav-item"><a class="nav-link" asp-controller="Home" asp-action="Contact">Contact</a></li>
-                        </ul>*@
+ 
                         @await Html.PartialAsync("_LoginPartial")
                     }
                 </div>
             </div>
         </nav>
-
+         
 
         @RenderBody()
 
