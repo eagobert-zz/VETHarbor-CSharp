@@ -265,8 +265,12 @@ namespace VETHarbor.Controllers
                 {
                     UserName = model.UserName,
                     Email = model.Email,
-                    Organization = organization,
-                    OrgId = organization.OrgId
+                    OrgId = organization.OrgId,
+                    OrgName = organization.OrgName,
+                    OrgCity = organization.OrgCity,
+                    OrgState = organization.OrgState,
+                    Organization = organization
+                 
                 };
 
                 IdentityResult result = _userManager.CreateAsync(user: user, password: model.Password).Result;

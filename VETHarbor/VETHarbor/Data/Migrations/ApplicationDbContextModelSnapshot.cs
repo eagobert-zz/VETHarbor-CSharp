@@ -150,7 +150,13 @@ namespace VETHarbor.Migrations
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256);
 
+                    b.Property<string>("OrgCity");
+
                     b.Property<string>("OrgId");
+
+                    b.Property<string>("OrgName");
+
+                    b.Property<string>("OrgState");
 
                     b.Property<string>("PasswordHash");
 
