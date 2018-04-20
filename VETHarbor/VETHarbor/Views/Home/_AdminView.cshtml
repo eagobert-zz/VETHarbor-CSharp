@@ -1,25 +1,38 @@
-﻿@{
+﻿@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@{
     ViewData["Title"] = "Admin View";
 }
 
 <section class="profile-page">
     <div class="page-header header-filter clear-filter purple-filter" data-parallax="true" style="background-image: url(/img/bg2.jpg); transform: translate3d(0px, 0px, 0px);">
         <div class="container">
-
+            @*<h2 class="text-center"></h2>*@
 
         </div>
     </div>
+
+    @*if (SignInManager.IsSignedIn(User) & UserManager.) { }*@
 
     <div class="main main-raised">
         <div class="profile-content">
             <div class="container">
                 <div class="row">
                     <div class="col-md-6 ml-auto mr-auto">
+
+
                         <div class="profile">
                             <div class="avatar">
                                 <img src="~/img/faces/christian.jpg" alt="Circle Image" class="img-raised rounded-circle img-fluid" />
                             </div>
                             <div class="name">
+
+                                @*Begin Test profile Info*@
+
+                             
+
+                                @*End Test Profile Data*@
 
                             </div>
                         </div>
@@ -62,9 +75,13 @@
                     </div>
 
                 </div>
-
+                @*Begin dashboard content*@
                 <div class="tab-content tab-space"></div>
             </div>
         </div>
     </div>
 </section>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
