@@ -1,5 +1,6 @@
 ﻿@inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
+@model VETHarbor.Models.ApplicationUser
 
 @{
     ViewData["Title"] = "Admin View";
@@ -8,19 +9,16 @@
 <section class="profile-page">
     <div class="page-header header-filter clear-filter purple-filter" data-parallax="true" style="background-image: url(/img/bg2.jpg); transform: translate3d(0px, 0px, 0px);">
         <div class="container">
-            @*<h2 class="text-center"></h2>*@
+            <h2 class="text-center">Admin View</h2>
 
         </div>
     </div>
-
-    @*if (SignInManager.IsSignedIn(User) & UserManager.) { }*@
 
     <div class="main main-raised">
         <div class="profile-content">
             <div class="container">
                 <div class="row">
                     <div class="col-md-6 ml-auto mr-auto">
-
 
                         <div class="profile">
                             <div class="avatar">
@@ -30,12 +28,12 @@
 
                                 @*Begin Test profile Info*@
 
-                             
 
-                                @*End Test Profile Data*@
+                                    @*End Test Profile Data*@
 
                             </div>
                         </div>
+
                     </div>
                 </div>
                 <div class="description text-center"></div>
@@ -46,26 +44,26 @@
                         <div class="profile-tabs">
                             <ul class="nav nav-pills nav-pills-icons justify-content-center" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link active show" href="#" role="tab" data-toggle="tab" aria-selected="true">
+                                    <a class="nav-link active show" href="#info" role="tab" data-toggle="tab" aria-selected="true">
                                         <i class="material-icons">info_outline</i>
-                                        About
+                                        Info
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link active show" href="#" role="tab" data-toggle="tab" aria-selected="true">
+                                    <a class="nav-link show" href="#events" role="tab" data-toggle="tab" aria-selected="true">
                                         <i class="material-icons">event_note</i>
                                         Events
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link active show" href="#" role="tab" data-toggle="tab" aria-selected="true">
+                                    <a class="nav-link show" href="#programs" role="tab" data-toggle="tab" aria-selected="true">
                                         <i class="material-icons">local_parking</i>
                                         Programs
                                     </a>
                                 </li>
 
                                 <li class="nav-item">
-                                    <a class="nav-link active show" href="#" role="tab" data-toggle="tab" aria-selected="true">
+                                    <a class="nav-link show" href="#vetData" role="tab" data-toggle="tab" aria-selected="true">
                                         <i class="material-icons">insert_chart</i>
                                         Veteran Data
                                     </a>
@@ -76,12 +74,22 @@
 
                 </div>
                 @*Begin dashboard content*@
-                <div class="tab-content tab-space"></div>
+                <div class="tab-content tab-space">
+                    <div class="tab-pane active text-center gallery" id="info">
+
+                        @*Begin Profile Info*@
+
+                        @await Component.InvokeAsync("Profile")
+
+                        @*End Profile Info*@
+
+                    </div>
+                    <div class="tab-pane text-center gallery" id="events"></div>
+                    <div class="tab-pane text-center gallery" id="programs"></div>
+                    <div class="tab-pane text-center gallery" id="vetData"></div>
+                </div>
             </div>
         </div>
     </div>
 </section>
 
-@section Scripts {
-    @await Html.PartialAsync("_ValidationScriptsPartial")
-}

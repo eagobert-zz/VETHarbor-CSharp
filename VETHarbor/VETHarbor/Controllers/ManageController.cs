@@ -74,6 +74,9 @@ namespace VETHarbor.Controllers
 
                 Username = user.UserName,
                 Email = user.Email,
+                OrgName = user.OrgName,
+                OrgCity = user.OrgCity,
+                OrgState = user.OrgState,
                 PhoneNumber = user.PhoneNumber,
                 IsEmailConfirmed = user.EmailConfirmed,
                 StatusMessage = StatusMessage,

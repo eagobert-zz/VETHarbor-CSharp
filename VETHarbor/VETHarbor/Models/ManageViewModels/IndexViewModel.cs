@@ -26,6 +26,8 @@ namespace VETHarbor.Models.ManageViewModels
         public string StatusMessage { get; set; }
 
         public string OrgName { get; set; }
-        public Organization Organization { get; set; }
+        public string OrgCity { get; set; }
+        public string OrgState { get; set; }
+        public ApplicationUser ApplicationUser { get; set; }
     }
 }
