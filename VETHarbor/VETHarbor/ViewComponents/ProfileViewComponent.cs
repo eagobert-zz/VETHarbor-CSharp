@@ -10,7 +10,7 @@ namespace VETHarbor.ViewComponents
 {
     public class ProfileViewModel
     {
-        //Create user profile layout
+        //Create user profile model
         public string OrgName { get; set; }
         public string OrgCity { get; set; }
         public string OrgState { get; set; }
@@ -46,11 +46,7 @@ namespace VETHarbor.ViewComponents
 
             };
 
-            //Check current user's profile info
            
-
-         
-
             //Render template bound to Profile View Model
             return View(model);
         }

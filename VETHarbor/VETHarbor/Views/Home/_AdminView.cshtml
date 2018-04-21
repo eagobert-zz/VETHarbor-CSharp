@@ -8,10 +8,10 @@
 
 <section class="profile-page">
     <div class="page-header header-filter clear-filter purple-filter" data-parallax="true" style="background-image: url(/img/bg2.jpg); transform: translate3d(0px, 0px, 0px);">
-        <div class="container">
-            <h2 class="text-center">Admin View</h2>
+        @*<div class="container">
+ 
 
-        </div>
+        </div>*@
     </div>
 
     <div class="main main-raised">
@@ -24,19 +24,12 @@
                             <div class="avatar">
                                 <img src="~/img/faces/christian.jpg" alt="Circle Image" class="img-raised rounded-circle img-fluid" />
                             </div>
-                            <div class="name">
-
-                                @*Begin Test profile Info*@
-
-
-                                    @*End Test Profile Data*@
-
-                            </div>
+                            @*<div class="name">
+                            </div>*@
                         </div>
-
                     </div>
                 </div>
-                <div class="description text-center"></div>
+                @*<div class="description text-center"></div>*@
 
                 @*Begin dashboard tabs*@
                 <div class="row">
@@ -49,16 +42,18 @@
                                         Info
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link show" href="#events" role="tab" data-toggle="tab" aria-selected="true">
-                                        <i class="material-icons">event_note</i>
-                                        Events
-                                    </a>
-                                </li>
+
                                 <li class="nav-item">
                                     <a class="nav-link show" href="#programs" role="tab" data-toggle="tab" aria-selected="true">
                                         <i class="material-icons">local_parking</i>
                                         Programs
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link show" href="#events" role="tab" data-toggle="tab" aria-selected="true">
+                                        <i class="material-icons">event_note</i>
+                                        Events
                                     </a>
                                 </li>
 
@@ -84,9 +79,30 @@
                         @*End Profile Info*@
 
                     </div>
-                    <div class="tab-pane text-center gallery" id="events"></div>
-                    <div class="tab-pane text-center gallery" id="programs"></div>
-                    <div class="tab-pane text-center gallery" id="vetData"></div>
+
+                    <div class="tab-pane text-center gallery" id="programs">
+                        @*Begin Profile Info*@
+
+                        @await Component.InvokeAsync("Programs")
+
+                        @*End Profile Info*@
+                    </div>
+
+                    <div class="tab-pane text-center gallery" id="events">
+                        @*Begin Profile Info*@
+
+                        @await Component.InvokeAsync("Profile")
+
+                        @*End Profile Info*@
+
+                    </div>
+                    <div class="tab-pane text-center gallery" id="vetData">
+                        @*Begin Profile Info*@
+
+                        @await Component.InvokeAsync("Profile")
+
+                        @*End Profile Info*@
+                    </div>
                 </div>
             </div>
         </div>
