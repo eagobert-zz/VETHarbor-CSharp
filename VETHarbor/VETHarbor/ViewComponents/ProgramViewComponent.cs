@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Threading.Tasks;
 using VETHarbor.Data;
 using VETHarbor.Models;
@@ -12,16 +11,10 @@ namespace VETHarbor.ViewComponents
 {
     public class ProgramViewModel
     {
-        //Create program model
-        public int ProgramId { get; set; }
-        public int OrgId { get; set; }
-        public Organization Organization { get; set; }
-        public string ProgramTitle { get; set; }
-        public string ProgramCity { get; set; }
-        public string ProgramState { get; set; }
-        public string ProgramDescription { get; set; }
-        public string WebsiteUrl { get; set; }
+        //Create program view model
 
+        public Organization Organization { get; set; }
+        public List<Programs> Programs { get; set; }
 
     }
 
@@ -51,10 +44,8 @@ namespace VETHarbor.ViewComponents
             };
 
             //Determine if the user has any programs listed
-            var programs = _context.Programs
-                .Include(p => p.Organization)
-                .Where(p => p.OrgId == user.OrgId)
-                .ToListAsync();
+            var programs = _context.Programs;
+                
 
 
             //Render template bound to Program View Model

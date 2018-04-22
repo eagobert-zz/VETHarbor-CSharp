@@ -17,6 +17,11 @@
                 <select asp-for="OrgId" class ="form-control" asp-items="ViewBag.OrgId"></select>
             </div>
             <div class="form-group">
+                <label asp-for="OrgName" class="control-label"></label>
+                <input asp-for="OrgName" class="form-control" />
+                <span asp-validation-for="OrgName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="ProgramType" class="control-label"></label>
                 <input asp-for="ProgramType" class="form-control" />
                 <span asp-validation-for="ProgramType" class="text-danger"></span>
@@ -62,6 +67,3 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

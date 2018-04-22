@@ -11,10 +11,9 @@ using VETHarbor.Data;
 namespace VETHarbor.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180411153237_UpdateLoginViewModel")]
-    partial class UpdateLoginViewModel
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -151,7 +150,13 @@ namespace VETHarbor.Migrations
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256);
 
+                    b.Property<string>("OrgCity");
+
                     b.Property<string>("OrgId");
+
+                    b.Property<string>("OrgName");
+
+                    b.Property<string>("OrgState");
 
                     b.Property<string>("PasswordHash");
 
@@ -196,13 +201,19 @@ namespace VETHarbor.Migrations
 
                     b.Property<string>("EventTitle");
 
-                    b.Property<int>("OrgId");
+                    b.Property<string>("OrgId");
 
-                    b.Property<string>("OrganizationOrgId");
+                    b.Property<string>("OrgName");
+
+                    b.Property<string>("ProgramTitle");
+
+                    b.Property<int?>("ProgramsProgramId");
 
                     b.HasKey("EventId");
 
-                    b.HasIndex("OrganizationOrgId");
+                    b.HasIndex("OrgId");
+
+                    b.HasIndex("ProgramsProgramId");
 
                     b.ToTable("Events");
                 });
@@ -228,9 +239,9 @@ namespace VETHarbor.Migrations
                     b.Property<int>("ProgramId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("OrgId");
+                    b.Property<string>("OrgId");
 
-                    b.Property<string>("OrganizationOrgId");
+                    b.Property<string>("OrgName");
 
                     b.Property<string>("ProgramCity");
 
@@ -248,7 +259,7 @@ namespace VETHarbor.Migrations
 
                     b.HasKey("ProgramId");
 
-                    b.HasIndex("OrganizationOrgId");
+                    b.HasIndex("OrgId");
 
                     b.ToTable("Programs");
                 });
@@ -309,14 +320,18 @@ namespace VETHarbor.Migrations
                 {
                     b.HasOne("VETHarbor.Models.Organization", "Organization")
                         .WithMany("Events")
-                        .HasForeignKey("OrganizationOrgId");
+                        .HasForeignKey("OrgId");
+
+                    b.HasOne("VETHarbor.Models.Programs", "Programs")
+                        .WithMany()
+                        .HasForeignKey("ProgramsProgramId");
                 });
 
             modelBuilder.Entity("VETHarbor.Models.Programs", b =>
                 {
                     b.HasOne("VETHarbor.Models.Organization", "Organization")
                         .WithMany("Programs")
-                        .HasForeignKey("OrganizationOrgId");
+                        .HasForeignKey("OrgId");
                 });
 #pragma warning restore 612, 618
         }

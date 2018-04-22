@@ -57,7 +57,7 @@ namespace VETHarbor.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("EventId,OrgId,EventTitle,EventDescription,EventStart,EventEnd,EventPhotoUrl")] Events events)
+        public async Task<IActionResult> Create([Bind("EventId,OrgId,OrgName,ProgramTitle,EventTitle,EventDescription,EventStart,EventEnd,EventPhotoUrl")] Events events)
         {
             if (ModelState.IsValid)
             {
@@ -91,7 +91,7 @@ namespace VETHarbor.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("EventId,OrgId,EventTitle,EventDescription,EventStart,EventEnd,EventPhotoUrl")] Events events)
+        public async Task<IActionResult> Edit(int id, [Bind("EventId,OrgId,OrgName,ProgramTitle,EventTitle,EventDescription,EventStart,EventEnd,EventPhotoUrl")] Events events)
         {
             if (id != events.EventId)
             {

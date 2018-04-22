@@ -11,8 +11,8 @@ using VETHarbor.Data;
 namespace VETHarbor.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180420225517_UpdateIndexViewModel2")]
-    partial class UpdateIndexViewModel2
+    [Migration("20180422191117_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -153,11 +153,11 @@ namespace VETHarbor.Migrations
 
                     b.Property<string>("OrgCity");
 
-                    b.Property<string>("OrgId");
-
                     b.Property<string>("OrgName");
 
                     b.Property<string>("OrgState");
+
+                    b.Property<string>("OrganizationOrgId");
 
                     b.Property<string>("PasswordHash");
 
@@ -182,7 +182,7 @@ namespace VETHarbor.Migrations
                         .HasName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.HasIndex("OrgId");
+                    b.HasIndex("OrganizationOrgId");
 
                     b.ToTable("AspNetUsers");
                 });
@@ -202,7 +202,7 @@ namespace VETHarbor.Migrations
 
                     b.Property<string>("EventTitle");
 
-                    b.Property<int>("OrgId");
+                    b.Property<string>("OrgName");
 
                     b.Property<string>("OrganizationOrgId");
 
@@ -234,7 +234,7 @@ namespace VETHarbor.Migrations
                     b.Property<int>("ProgramId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("OrgId");
+                    b.Property<string>("OrgName");
 
                     b.Property<string>("OrganizationOrgId");
 
@@ -308,7 +308,7 @@ namespace VETHarbor.Migrations
                 {
                     b.HasOne("VETHarbor.Models.Organization", "Organization")
                         .WithMany("ApplicationUsers")
-                        .HasForeignKey("OrgId");
+                        .HasForeignKey("OrganizationOrgId");
                 });
 
             modelBuilder.Entity("VETHarbor.Models.Events", b =>

@@ -11,7 +11,7 @@ namespace VETHarbor.Models
 
         public Organization()
         {
-            OrgId = Guid.NewGuid().ToString();
+           // OrgId = Guid.NewGuid().ToString();
             ApplicationUsers = new List<ApplicationUser>();
         }
 
