@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Threading.Tasks;
 using VETHarbor.Data;
 using VETHarbor.Models;
@@ -12,24 +13,21 @@ namespace VETHarbor.ViewComponents
     public class ProgramViewModel
     {
         //Create program model
-
+        public int ProgramId { get; set; }
         public int OrgId { get; set; }
         public Organization Organization { get; set; }
-
-        public string ProgramType { get; set; }
         public string ProgramTitle { get; set; }
         public string ProgramCity { get; set; }
         public string ProgramState { get; set; }
         public string ProgramDescription { get; set; }
         public string WebsiteUrl { get; set; }
-        public string ProgramPhotoUrl { get; set; }
-        public IEnumerable<Programs> Programs { get; set; } = new List<Programs>();
-      
+
+
     }
 
     /*ViewComponent: Displaying the user's org programs on the AdminView page*/
 
-    [ViewComponent(Name = "Program")]
+    [ViewComponent(Name = "Programs")]
     public class ProgramViewComponent : ViewComponent
     {
         private readonly ApplicationDbContext _context;
@@ -39,7 +37,7 @@ namespace VETHarbor.ViewComponents
         {
             _context = c;
             _userManager = userManager;
-        }
+        }                                                                                                                                                                                                                                                                                                                                                                                                                      
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
@@ -47,10 +45,16 @@ namespace VETHarbor.ViewComponents
             ApplicationUser user = await _userManager.GetUserAsync(HttpContext.User);
 
             //Instantiate View Model
-            ProgramViewModel model = new ProgramViewModel();
+            ProgramViewModel model = new ProgramViewModel
+            {
+                
+            };
 
             //Determine if the user has any programs listed
-            var programs = _context.Programs.Include(p => p.Organization).ToListAsync();
+            var programs = _context.Programs
+                .Include(p => p.Organization)
+                .Where(p => p.OrgId == user.OrgId)
+                .ToListAsync();
 
 
             //Render template bound to Program View Model

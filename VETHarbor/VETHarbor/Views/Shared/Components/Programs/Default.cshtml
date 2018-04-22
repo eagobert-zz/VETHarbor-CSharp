@@ -1,32 +1,4 @@
-﻿@model IEnumerable<VETHarbor.ViewComponents.ProgramViewComponent>
+﻿@model VETHarbor.ViewComponents.ProgramViewModel
 
 
-
-    <a asp-action="Create">Create New</a>
-
-
-        @foreach (var item in Model)
-        {
-          
-                    @Html.DisplayFor(modelItem => item.ProgramType)
-             
-                    @Html.DisplayFor(modelItem => item.ProgramTitle)
-            
-                    @Html.DisplayFor(modelItem => item.ProgramCity)
-            
-                    @Html.DisplayFor(modelItem => item.ProgramState)
-             
-                    @Html.DisplayFor(modelItem => item.ProgramDescription)
-             
-                    @Html.DisplayFor(modelItem => item.WebsiteUrl)
-              
-                    @Html.DisplayFor(modelItem => item.ProgramPhotoUrl)
-             
-                    @Html.DisplayFor(modelItem => item.Organization.OrgId)
-            
-                    <a asp-action="Edit" asp-route-id="@item.ProgramId">Edit</a>
-                    <a asp-action="Details" asp-route-id="@item.ProgramId">Details</a>
-                    <a asp-action="Delete" asp-route-id="@item.ProgramId">Delete</a>
-
-        }
 
