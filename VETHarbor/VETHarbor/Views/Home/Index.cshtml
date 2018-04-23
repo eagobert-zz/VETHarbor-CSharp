@@ -1,9 +1,10 @@
 ﻿@inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
+@model VETHarbor.Models.Programs
 
-@{
-    ViewData["Title"] = "Home Page";
-}
+    @{
+        ViewData["Title"] = "Home Page";
+    }
 
 
     <div class="page-header header-filter clear-filter purple-filter" data-parallax="true" style="background-image: url(/img/bg2.jpg); transform: translate3d(0px, 0px, 0px);">
@@ -17,11 +18,14 @@
 
                     @*Begin Search Box Here*@
                     <div class="">
-                        <form class="" asp-controller="Search" asp-action="Index" >
-                            <input type="text" name="" class="rounded">
+                        <form class="input-group input-group-lg" asp-controller="Search" asp-action="Index" method="get">
+
+                            @*<select asp-for="ProgramType" asp-items="Model.programType"><option value="">All</option></select>*@
+                            <input type="text" name="searchString" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm">
                             <button type="submit" class="btn btn-primary btn-fab btn-round" value="Filter"><i class="material-icons">search</i></button>
                         </form>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -30,7 +34,56 @@
     <div class="main main-raised">
         <div class="container">
             <div class="row">
-                <h1>Searched events will populate here!</h1>
+                <h2 class="text-center">Upcoming Events</h2>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.OrgName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ProgramTitle)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ProgramCity)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ProgramState)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ProgramDescription)
+                            </th>
+ 
+                            <th></th>
+                        </tr>
+                    </thead>
+                    @*<tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.OrgName)
+                                </td>
+                            
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ProgramTitle)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ProgramCity)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ProgramState)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ProgramDescription)
+                                </td>
+                                <td>
+                                    <a asp-action="Details" asp-route-id="@item.ProgramId">Details</a> |
+                                </td>
+                            </tr>
+                        }
+                    </tbody>*@
+                </table>
             </div>
         </div>
     </div>
