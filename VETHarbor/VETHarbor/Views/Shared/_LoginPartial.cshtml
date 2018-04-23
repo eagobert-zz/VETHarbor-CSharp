@@ -8,45 +8,56 @@
 
 @if (SignInManager.IsSignedIn(User) & User.IsInRole("Administrator"))
 {
-    
-<div class="container">
-    <div class="navbar-translate">
-        <a asp-area="" asp-controller="Manage" asp-action="Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
-        <button type="button" class="navbar-toggler" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-            <span class="navbar-toggler-icon"></span>
-            <span class="navbar-toggler-icon"></span>
-        </button>
+    <div class="container">
+        <div class="navbar-translate">
+            <a asp-area="" asp-controller="Manage" asp-action="Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                <span class="navbar-toggler-icon"></span>
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse">
+            <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm" class="navbar-right">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Manage" asp-action="Index" title="Manage">
+                            <i class="material-icons">info_outline</i>
+                            PROFILE
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Programs" asp-action="Index" title="Programs">
+                            <i class="material-icons">local_parking</i>
+                            PROGRAMS
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Events" asp-action="Index" title="Events">
+                            <i class="material-icons">event_note</i>
+                            EVENTS
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link">
+                            <i class="material-icons">insert_chart</i>
+                            VETERAN DATA
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <button type="submit" class="btn btn-link navbar-btn navbar-link">
+                            <i class="material-icons">power_settings_new</i>
+                            Log out
+                        </button>
+                    </li>
+                </ul>
+            </form>
+        </div>
     </div>
-    <div class="collapse navbar-collapse">
-    <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm" class="navbar-right">
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link">
-                    <i class="material-icons"></i>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link">
-                    <i class="material-icons"></i>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link">
-                    <i class="material-icons"></i>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link">
-                    <i class="material-icons"></i>
-                </a>
-            </li>
-            <li>
-                <button type="submit" class="btn btn-link navbar-btn navbar-link">Log out</button>
-            </li>
-        </ul>
-    </form>
-    </div>
-</div>
+}
+
+@if (SignInManager.IsSignedIn(User) & User.IsInRole("User"))
+{
+ 
 }
 
