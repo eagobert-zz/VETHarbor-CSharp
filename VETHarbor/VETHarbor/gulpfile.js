@@ -1,4 +1,6 @@
-﻿/// <binding BeforeBuild='copy-assets' />
+﻿//<binding BeforeBuild='copy-assets' />
+//Note:  To view node_modules folder use the "Show All Files" option is visual studio
+
 "use strict";
 
 var _ = require('lodash'),

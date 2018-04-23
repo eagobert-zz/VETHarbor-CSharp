@@ -9,7 +9,7 @@
 }
 
 <h4>@ViewData["Title"]</h4>
-@*@Html.Partial("_StatusMessage", Model.StatusMessage)*@
+@Html.Partial("_StatusMessage", Model.StatusMessage)
 <div class="row">
     <div class="col-md-6">
         <form method="post">
@@ -57,9 +57,9 @@ else
 
         <h1>You are in the Admin Role!</h1>
         <div class="form-group">
-            <label asp-for="Organization.OrgName"></label>
-            <input asp-for="Organization.OrgName" class="form-control" />
-            <span asp-validation-for="Organization.OrgName" class="text-danger"></span>
+            <label asp-for="OrgName"></label>
+            <input asp-for="OrgName" class="form-control" />
+            <span asp-validation-for="OrgName" class="text-danger"></span>
         </div>
 }
 

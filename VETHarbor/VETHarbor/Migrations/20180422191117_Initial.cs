@@ -71,7 +71,10 @@ namespace VETHarbor.Migrations
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     NormalizedEmail = table.Column<string>(maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(maxLength: 256, nullable: true),
-                    OrgId = table.Column<string>(nullable: true),
+                    OrgCity = table.Column<string>(nullable: true),
+                    OrgName = table.Column<string>(nullable: true),
+                    OrgState = table.Column<string>(nullable: true),
+                    OrganizationOrgId = table.Column<string>(nullable: true),
                     PasswordHash = table.Column<string>(nullable: true),
                     PhoneNumber = table.Column<string>(nullable: true),
                     PhoneNumberConfirmed = table.Column<bool>(nullable: false),
@@ -83,8 +86,8 @@ namespace VETHarbor.Migrations
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AspNetUsers_Organizations_OrgId",
-                        column: x => x.OrgId,
+                        name: "FK_AspNetUsers_Organizations_OrganizationOrgId",
+                        column: x => x.OrganizationOrgId,
                         principalTable: "Organizations",
                         principalColumn: "OrgId",
                         onDelete: ReferentialAction.Restrict);
@@ -101,7 +104,7 @@ namespace VETHarbor.Migrations
                     EventPhotoUrl = table.Column<string>(nullable: true),
                     EventStart = table.Column<DateTime>(nullable: false),
                     EventTitle = table.Column<string>(nullable: true),
-                    OrgId = table.Column<int>(nullable: false),
+                    OrgName = table.Column<string>(nullable: true),
                     OrganizationOrgId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -121,7 +124,7 @@ namespace VETHarbor.Migrations
                 {
                     ProgramId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    OrgId = table.Column<int>(nullable: false),
+                    OrgName = table.Column<string>(nullable: true),
                     OrganizationOrgId = table.Column<string>(nullable: true),
                     ProgramCity = table.Column<string>(nullable: true),
                     ProgramDescription = table.Column<string>(nullable: true),
@@ -267,9 +270,9 @@ namespace VETHarbor.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AspNetUsers_OrgId",
+                name: "IX_AspNetUsers_OrganizationOrgId",
                 table: "AspNetUsers",
-                column: "OrgId");
+                column: "OrganizationOrgId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Events_OrganizationOrgId",

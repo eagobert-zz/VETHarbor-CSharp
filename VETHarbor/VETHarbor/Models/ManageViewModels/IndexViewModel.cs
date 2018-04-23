@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace VETHarbor.Models.ManageViewModels
 {
+ 
     public class IndexViewModel
 
     {
@@ -26,6 +28,8 @@ namespace VETHarbor.Models.ManageViewModels
         public string StatusMessage { get; set; }
 
         public string OrgName { get; set; }
-        public Organization Organization { get; set; }
+        public string OrgCity { get; set; }
+        public string OrgState { get; set; }
+        public ApplicationUser ApplicationUser { get; set; }
     }
 }

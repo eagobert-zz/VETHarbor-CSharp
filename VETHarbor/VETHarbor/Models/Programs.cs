@@ -11,7 +11,8 @@ namespace VETHarbor.Models
         [Key]
         public int ProgramId { get; set; }
 
-        public int OrgId { get; set; }
+        public string OrgId { get; set; }
+        public string OrgName { get; set; }
         public Organization Organization { get; set; }
 
         public string ProgramType { get; set; }

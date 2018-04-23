@@ -10,6 +10,7 @@
 
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="~/css/material-kit.css" />
 
 
@@ -18,9 +19,12 @@
 
     <div class="index-page">
         <nav class="navbar navbar-color-on-scroll fixed-top navbar-expand-lg navbar-transparent" color-on-scroll="100" id="sectionsNav">
+        @if (!SignInManager.IsSignedIn(User))
+    {
             <div class="container">
-                <div class="navbar-translate d-flex flex-row-reverse ">
+                <div class="navbar-translate">
                     <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">VETHarbor</a>
+
                     <button type="button" class="navbar-toggler" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                         <span class="navbar-toggler-icon"></span>
@@ -28,31 +32,21 @@
                     </button>
                 </div>
 
-                <div class="collapse navbar-collapse d-flex flex-row-reverse ">
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item"><a class="nav-link" asp-controller="Account" asp-action="Register"><i class="material-icons">library_add</i>Register</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-controller="Account" asp-action="Login"><i class="material-icons">power_settings_new</i>Log in</a></li>
+                    </ul>
 
-                    @if (!SignInManager.IsSignedIn(User))
-                    {
-
-                        @*<ul class="navbar-nav ml-auto">
-                            <li class="active dropdown nav-item"><a class="nav-link" asp-controller="Home" asp-action="Index">Home</a></li>
-                            <li class="dropdown nav-item"><a class="nav-link" asp-controller="Home" asp-action="About">About</a></li>
-                            <li class="dropdown nav-item"><a class="nav-link" asp-controller="Home" asp-action="Contact">Contact</a></li>
-                        </ul>*@
-                        @await Html.PartialAsync("_LoginPartial")
-
-
-
-                    }
-
-                    @if (SignInManager.IsSignedIn(User))
-                    {
-
-                        @await Html.PartialAsync("_LoginPartial")
-                    }
                 </div>
             </div>
+}
+
+else
+{
+    @await Html.PartialAsync("_LoginPartial")
+}
         </nav>
-         
 
         @RenderBody()
 

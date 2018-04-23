@@ -57,7 +57,7 @@ namespace VETHarbor.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProgramId,OrgId,ProgramType,ProgramTitle,ProgramCity,ProgramState,ProgramDescription,WebsiteUrl,ProgramPhotoUrl")] Programs programs)
+        public async Task<IActionResult> Create([Bind("ProgramId,OrgId,OrgName,ProgramType,ProgramTitle,ProgramCity,ProgramState,ProgramDescription,WebsiteUrl,ProgramPhotoUrl")] Programs programs)
         {
             if (ModelState.IsValid)
             {
@@ -91,7 +91,7 @@ namespace VETHarbor.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ProgramId,OrgId,ProgramType,ProgramTitle,ProgramCity,ProgramState,ProgramDescription,WebsiteUrl,ProgramPhotoUrl")] Programs programs)
+        public async Task<IActionResult> Edit(int id, [Bind("ProgramId,OrgId,OrgName,ProgramType,ProgramTitle,ProgramCity,ProgramState,ProgramDescription,WebsiteUrl,ProgramPhotoUrl")] Programs programs)
         {
             if (id != programs.ProgramId)
             {

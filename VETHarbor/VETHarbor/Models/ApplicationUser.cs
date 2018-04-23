@@ -17,23 +17,14 @@ namespace VETHarbor.Models
 
         //Add properties for the user's organization
         public string OrgId { get; set; }
+        public string OrgName { get; set; }
+        public string OrgCity { get; set; }
+        public string OrgState { get; set; }
         public Organization Organization { get; set; }
 
         public virtual ICollection<IdentityUserRole<Guid>> Roles { get; private set; }
 
 
-
-        //public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
-        //{
-        //    // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
-        //    var userIdentity = await manager.CreateAsync(this);
-        //    // Add custom user claims here
-        //    userIdentity.AddClaimsAsync(new List<Claim>()
-        //    {
-        //        new Claim("Organization", OrgId)
-        //    });
-        //    return userIdentity;
-        //}
 
     }
 }

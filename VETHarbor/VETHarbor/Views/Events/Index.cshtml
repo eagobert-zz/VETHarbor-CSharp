@@ -13,6 +13,12 @@
     <thead>
         <tr>
                 <th>
+                    @Html.DisplayNameFor(model => model.OrgName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProgramTitle)
+                </th>
+                <th>
                     @Html.DisplayNameFor(model => model.EventTitle)
                 </th>
                 <th>
@@ -36,6 +42,12 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrgName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProgramTitle)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.EventTitle)
             </td>

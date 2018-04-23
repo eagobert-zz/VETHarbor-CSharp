@@ -11,9 +11,10 @@ using VETHarbor.Data;
 namespace VETHarbor.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180422200430_UpdateInitial2")]
+    partial class UpdateInitial2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -205,15 +206,9 @@ namespace VETHarbor.Migrations
 
                     b.Property<string>("OrgName");
 
-                    b.Property<string>("ProgramTitle");
-
-                    b.Property<int?>("ProgramsProgramId");
-
                     b.HasKey("EventId");
 
                     b.HasIndex("OrgId");
-
-                    b.HasIndex("ProgramsProgramId");
 
                     b.ToTable("Events");
                 });
@@ -321,10 +316,6 @@ namespace VETHarbor.Migrations
                     b.HasOne("VETHarbor.Models.Organization", "Organization")
                         .WithMany("Events")
                         .HasForeignKey("OrgId");
-
-                    b.HasOne("VETHarbor.Models.Programs", "Programs")
-                        .WithMany()
-                        .HasForeignKey("ProgramsProgramId");
                 });
 
             modelBuilder.Entity("VETHarbor.Models.Programs", b =>

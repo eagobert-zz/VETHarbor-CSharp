@@ -34,5 +34,7 @@ namespace VETHarbor.Data
                 .OnDelete(DeleteBehavior.Cascade);
         }
 
+        public DbSet<VETHarbor.Models.ApplicationUser> ApplicationUser { get; set; }
+
     }
 }
