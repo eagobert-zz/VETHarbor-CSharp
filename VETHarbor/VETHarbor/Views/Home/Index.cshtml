@@ -13,12 +13,14 @@
                     <div class="brand">
                         <h1>VETHarbor</h1>
                         <h3>Find your recreational art therapy bliss.</h3>
-                        <div class="input-group input-group-lg">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroup-sizing-lg"></span>
-                            </div>
-                            <input type="button" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm">
-                        </div>
+                    </div>
+
+                    @*Begin Search Box Here*@
+                    <div class="">
+                        <form class="" asp-controller="Search" asp-action="Index" >
+                            <input type="text" name="" class="rounded">
+                            <button type="submit" class="btn btn-primary btn-fab btn-round" value="Filter"><i class="material-icons">search</i></button>
+                        </form>
                     </div>
                 </div>
             </div>
