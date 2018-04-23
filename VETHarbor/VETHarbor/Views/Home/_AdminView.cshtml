@@ -24,8 +24,9 @@
                             <div class="avatar">
                                 <img src="~/img/faces/christian.jpg" alt="Circle Image" class="img-raised rounded-circle img-fluid" />
                             </div>
-                            @*<div class="name">
-                            </div>*@
+                            <div class="name">
+                                @await Component.InvokeAsync("Profile")
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -74,7 +75,7 @@
 
                         @*Begin Profile Info*@
 
-                        @await Component.InvokeAsync("Profile")
+                       
 
                         @*End Profile Info*@
 
@@ -83,7 +84,7 @@
                     <div class="tab-pane text-center gallery" id="programs">
                         @*Begin Profile Info*@
 
-                        @await Component.InvokeAsync("Programs")
+                        
 
                         @*End Profile Info*@
                     </div>
@@ -91,7 +92,7 @@
                     <div class="tab-pane text-center gallery" id="events">
                         @*Begin Profile Info*@
 
-                        @await Component.InvokeAsync("Profile")
+                       
 
                         @*End Profile Info*@
 
@@ -99,7 +100,7 @@
                     <div class="tab-pane text-center gallery" id="vetData">
                         @*Begin Profile Info*@
 
-                        @await Component.InvokeAsync("Profile")
+                       
 
                         @*End Profile Info*@
                     </div>
