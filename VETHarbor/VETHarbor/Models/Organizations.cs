@@ -9,17 +9,17 @@ namespace VETHarbor.Models
     public class Organization
     {
 
-        public Organization()
-        {
-           // OrgId = Guid.NewGuid().ToString();
-            ApplicationUsers = new List<ApplicationUser>();
-        }
+        //public Organization()
+        //{
+        //   // OrgId = Guid.NewGuid().ToString();
+        //    ApplicationUsers = new List<ApplicationUser>();
+        //}
 
-        public Organization(string name)
-            : this()
-        {
-            OrgName = name;
-        }
+        //public Organization(string name)
+        //    : this()
+        //{
+        //    OrgName = name;
+        //}
 
         [Key]
         public string OrgId { get; set; }

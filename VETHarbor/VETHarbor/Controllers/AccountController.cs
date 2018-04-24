@@ -301,10 +301,10 @@ namespace VETHarbor.Controllers
                     _userManager.AddToRoleAsync(user, CurrentRole).Wait();
 
                     //Adds "organization" claim to new registered user
-                   await _userManager.AddClaimsAsync(user, new List<Claim>()
-                    {
-                         new Claim("Organization", organization.OrgName)
-                    });
+                   //await _userManager.AddClaimsAsync(user, new List<Claim>()
+                   // {
+                   //      new Claim("Organization", organization.OrgName)
+                   // });
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     _logger.LogInformation("User created a new account with password. Role Added");
