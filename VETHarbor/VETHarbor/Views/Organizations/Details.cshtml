@@ -1,0 +1,36 @@
+﻿@model VETHarbor.Models.Organization
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Organization</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.OrgName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OrgName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OrgCity)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OrgCity)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OrgState)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OrgState)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.OrgId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
